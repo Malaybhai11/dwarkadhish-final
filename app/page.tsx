@@ -25,7 +25,7 @@ export default function App() {
       <Navbar>
         <NavbarItem label="Home" href="#home" />
         <NavbarItem label="Shop" href="#shop" />
-        <NavbarItem label="About" href="/about-us" />
+        <NavbarItem label="About" href="/about" />
         <NavbarItem label="" href="#docs" />
         <NavbarButton label="Login" href="#login" variant="simple" />
         <NavbarButton label="Signup" href="#signup" variant="colored" />

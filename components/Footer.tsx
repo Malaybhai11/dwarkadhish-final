@@ -5,84 +5,180 @@ import { FaInstagram, FaPhoneAlt, FaEnvelope, FaWhatsapp } from "react-icons/fa"
 import { BiLogoGmail } from "react-icons/bi";
 
 export default function Footer() {
-    return (
-        <footer className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
-            <div className="max-w-[1280px] mx-auto py-12">
-                {/* Newsletter / Hero */}
-                <div className="relative text-gray-50 p-8 flex flex-col md:items-center md:justify-between gap-6">
-                    <div className="text-5xl">
-                        DWARKADHISH PAPER PRODUCT
-                    </div>
+  return (
+    <footer className="relative bg-neutral-100 text-neutral-800 overflow-hidden">
+      {/* Ambient top fade */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.04),transparent_40%)]" />
 
-                </div>
+      {/* Subtle liquid glow */}
+      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-neutral-300/20 blur-[120px]" />
 
-                {/* Links & columns */}
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-6 gap-6 text-sm">
-                    <div className="md:col-span-2">
-                        <div className="mb-4">
-                            <img src="/main-logo.jpg" alt="Logo" className="h-8 w-10" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
-                        </div>
-                        <p className="text-gray-600">Serving the community with devotion and care. Visit us for temple timings, events and services.</p>
-                    </div>
+      <div className="relative max-w-[1280px] mx-auto px-6 py-20">
+        {/* Brand header */}
+        <div className="mb-20 flex flex-col items-center text-center">
+          <img
+            src="/main-logo.png"
+            alt="Dwarkadhish Logo"
+            className="h-20 w-auto mb-6 opacity-90"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = "none";
+            }}
+          />
 
-                    <div>
-                        <h4 className="font-semibold mb-3">Products</h4>
-                        <ul className="space-y-2">
-                            <li><Link href="/products/new-arrivals" className="text-gray-600 hover:text-gray-400">New Arrivals</Link></li>
-                            <li><Link href="/products/gifts" className="text-gray-600 hover:text-gray-400">Gifts & Prasad</Link></li>
-                            <li><Link href="/products/decor" className="text-gray-600 hover:text-gray-400">Temple Decor</Link></li>
-                            <li><Link href="/products/books" className="text-gray-600 hover:text-gray-400">Books & Music</Link></li>
-                        </ul>
-                    </div>
+          <h2
+            className="text-3xl md:text-4xl font-light tracking-tight"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgb(30,30,30), rgb(140,140,140))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Dwarkadhish Paper Product
+          </h2>
 
-                    <div>
-                        <h4 className="font-semibold mb-3">Navigate</h4>
-                        <ul className="space-y-2">
-                            <li><Link href="/contact" className="text-gray-600 hover:text-gray-400">Home</Link></li>
-                            <li><Link href="/help" className="text-gray-600 hover:text-gray-400">Shop</Link></li>
-                            <li><Link href="/shipping" className="text-gray-600 hover:text-gray-400">About</Link></li>
-                        </ul>
-                    </div>
+          <p className="mt-4 text-sm text-neutral-500 max-w-xl leading-relaxed">
+            Precision-driven paper and printing solutions trusted by institutions,
+            enterprises, and professionals.
+          </p>
+        </div>
 
-                    <div>
-                        <h4 className="font-semibold mb-3">Legal</h4>
-                        <ul className="space-y-2">
-                            <li><Link href="/terms" className="text-gray-600 hover:text-gray-400">Terms & Conditions</Link></li>
-                            <li><Link href="/privacy" className="text-gray-600 hover:text-gray-400">Privacy Policy</Link></li>
-                            <li><Link href="/cookie" className="text-gray-600 hover:text-gray-400">Cookie Policy</Link></li>
-                        </ul>
-                    </div>
+        {/* Main content */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-12 text-sm">
+          {/* About */}
+          <div className="md:col-span-2">
+            <p className="text-neutral-500 leading-relaxed">
+              We specialize in premium paper products and institutional printing,
+              delivering consistency, quality, and reliability at scale.
+            </p>
+          </div>
 
-                    <div className="md:col-span-1">
-                        <h4 className="font-semibold mb-3">Contact</h4>
-                        <div className="flex flex-col gap-3 text-gray-600">
-                            <a href="tel:+911234567890" className="flex items-center gap-2 hover:text-gray-400"><FaPhoneAlt /> +91 12345 67890</a>
-                            <a href="mailto:info@example.com" className="flex items-center gap-2 hover:text-gray-400"><FaEnvelope /> info@dwarkadhish.org</a>
+          {/* Products */}
+          <div>
+            <h4 className="text-neutral-900 font-medium mb-4">Products</h4>
+            <ul className="space-y-2">
+              {["New Arrivals", "Gifts & Prasad", "Temple Decor", "Books & Music"].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href="#"
+                      className="text-neutral-500 hover:text-neutral-900 transition"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
 
-                            <div className="mt-4">
-                                <h5 className="font-medium mb-2">Follow Us</h5>
-                                <div className="flex gap-3">
-                                    <a aria-label="Instagram" href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gray-800 text-white"><FaInstagram /></a>
-                                    <a aria-label="WhatsApp" href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-600 text-white"><FaWhatsapp /></a>
-                                    <a aria-label="Gmail" href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-600 text-white"><BiLogoGmail /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          {/* Navigation */}
+          <div>
+            <h4 className="text-neutral-900 font-medium mb-4">Navigate</h4>
+            <ul className="space-y-2">
+              {["Home", "Shop", "About"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="#"
+                    className="text-neutral-500 hover:text-neutral-900 transition"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                <div className="mt-8 border-t border-gray-200 pt-6 text-xs text-gray-500 flex flex-col md:flex-row justify-between items-center">
-                    <p className="mt-4 text-xs text-gray-400">© {new Date().getFullYear()}. All rights reserved.</p>
-                </div>
-                <div className="mt-4 text-sm flex justify-center items-center">
-                    <div className="flex gap-4 text-gray-400">
-                        <button className="cursor-pointer bg-gradient-to-r from-gray-800 via-gray-800 to-gray-800 px-4 py-3 rounded-full border border-gray-600 hover:border-gray-400 hover:bg-gray-100 transition">
-                            Know Devloparers
-                        </button>
-                    </div>
+          {/* Legal */}
+          <div>
+            <h4 className="text-neutral-900 font-medium mb-4">Legal</h4>
+            <ul className="space-y-2">
+              {["Terms & Conditions", "Privacy Policy", "Cookie Policy"].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href="#"
+                      className="text-neutral-500 hover:text-neutral-900 transition"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
 
-                </div>
+          {/* Contact */}
+          <div>
+            <h4 className="text-neutral-900 font-medium mb-4">Contact</h4>
+            <div className="flex flex-col gap-3 text-neutral-500">
+              <a
+                href="tel:+911234567890"
+                className="flex items-center gap-2 hover:text-neutral-900 transition"
+              >
+                <FaPhoneAlt /> +91 12345 67890
+              </a>
+              <a
+                href="mailto:info@example.com"
+                className="flex items-center gap-2 hover:text-neutral-900 transition"
+              >
+                <FaEnvelope /> info@dwarkadhish.org
+              </a>
+
+              {/* Social icons */}
+              <div className="mt-4 flex gap-3">
+                {[
+                  { icon: <FaInstagram />, hover: "hover:bg-neutral-900" },
+                  { icon: <FaWhatsapp />, hover: "hover:bg-green-600" },
+                  { icon: <BiLogoGmail />, hover: "hover:bg-red-600" },
+                ].map((s, i) => (
+                  <a
+                    key={i}
+                    href="#"
+                    className={`
+                      w-10 h-10 rounded-full
+                      bg-white/70 backdrop-blur-md
+                      border border-neutral-300
+                      flex items-center justify-center
+                      text-neutral-700
+                      shadow-[0_6px_20px_rgba(0,0,0,0.08)]
+                      transition-all duration-300
+                      hover:text-white
+                      hover:-translate-y-0.5
+                      ${s.hover}
+                    `}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
             </div>
-        </footer>
-    );
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-20 pt-6 border-t border-neutral-300 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500">
+          <p>© {new Date().getFullYear()} Dwarkadhish Paper Product. All rights reserved.</p>
+
+          <button
+            className="
+              mt-4 md:mt-0
+              px-6 py-3
+              rounded-full
+              bg-white/70 backdrop-blur-md
+              border border-neutral-300
+              text-neutral-700
+              shadow-[0_10px_30px_rgba(0,0,0,0.12)]
+              transition-all duration-500
+              hover:-translate-y-0.5
+              hover:shadow-[0_18px_50px_rgba(0,0,0,0.18)]
+            "
+          >
+            Know Developers
+          </button>
+        </div>
+      </div>
+    </footer>
+  );
 }
