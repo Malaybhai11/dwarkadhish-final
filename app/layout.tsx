@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+// @ts-ignore: side-effect CSS import without type declarations
+import "./fonts.css";
+// @ts-ignore: side-effect CSS import without type declarations
 import "./globals.css";
+import LightRay from "@/components/LightRays";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
