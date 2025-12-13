@@ -1,6 +1,6 @@
 import { Navbar, NavbarItem, NavbarButton } from "../components/Navbar";
 import { DemoContent } from "../components/DemoContent";
-import LightRays from "../components/LightRays";
+// import LightRays from "../components/LightRays";
 import ClickSpark from "../components/ClickSpark";
 import UspPage from "../components/Usp-page";
 import Footer from "../components/Footer";
@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 export default function App() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="lightdiv absolute inset-0 z-[1] opacity-40">
+      {/* <div className="lightdiv absolute inset-0 z-[1] opacity-40">
         <LightRays
           raysOrigin="top-center"
           raysColor="#000000"
@@ -21,7 +21,7 @@ export default function App() {
           distortion={0.01}
           className="custom-rays z-[-1] absolute inset-0 pointer-events-none"
         />
-      </div>
+      </div> */}
       <Navbar>
         <NavbarItem label="Home" href="#home" />
         <NavbarItem label="Shop" href="#shop" />

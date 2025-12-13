@@ -1,3 +1,4 @@
+"use client";
 import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
 import './LightRays.css';
@@ -167,7 +168,7 @@ void main() {
   gl_Position = vec4(position, 0.0, 1.0);
 }`;
 
-      const frag = `precision highp float;
+  const frag = `precision highp float;
 
 uniform float iTime;
 uniform vec2  iResolution;
@@ -198,67 +199,64 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
   vec2 dirNorm = normalize(sourceToCoord);
   float cosAngle = dot(dirNorm, rayRefDirection);
 
-  float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2;
-  
+  float distortedAngle = cosAngle
+    + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2;
+
   float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001));
 
   float distance = length(sourceToCoord);
   float maxDistance = iResolution.x * rayLength;
   float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
-  
-  float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
-  float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0;
+
+  float fadeFalloff = clamp(
+    (iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance),
+    0.5,
+    1.0
+  );
+
+  float pulse = pulsating > 0.5
+    ? (0.8 + 0.2 * sin(iTime * speed * 3.0))
+    : 1.0;
 
   float baseStrength = clamp(
     (0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) +
-    (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)),
-    0.0, 1.0
+    (0.3  + 0.2  * cos(-distortedAngle * seedB + iTime * speed)),
+    0.0,
+    1.0
   );
 
   return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse;
 }
 
-void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-  vec2 coord = vec2(fragCoord.x, iResolution.y - fragCoord.y);
-  
+void main() {
+  vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y);
+
   vec2 finalRayDir = rayDir;
   if (mouseInfluence > 0.0) {
-    vec2 mouseScreenPos = mousePos * iResolution.xy;
+    vec2 mouseScreenPos = mousePos * iResolution;
     vec2 mouseDirection = normalize(mouseScreenPos - rayPos);
     finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence));
   }
 
-  vec4 rays1 = vec4(1.0) *
-               rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349,
-                           1.5 * raysSpeed);
-  vec4 rays2 = vec4(1.0) *
-               rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234,
-                           1.1 * raysSpeed);
+  float r1 = rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.9 * raysSpeed);
+  float r2 = rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed);
 
-  fragColor = rays1 * 0.5 + rays2 * 0.4;
+  float intensity = r1 * 0.8 + r2 * 0.4;
 
   if (noiseAmount > 0.0) {
-    float n = noise(coord * 0.01 + iTime * 0.1);
-    fragColor.rgb *= (1.0 - noiseAmount + noiseAmount * n);
+    intensity *= mix(1.0, noise(coord * 0.01 + iTime * 0.1), noiseAmount);
   }
 
-  float brightness = 1.0 - (coord.y / iResolution.y);
-  fragColor.x *= 0.1 + brightness * 0.8;
-  fragColor.y *= 0.3 + brightness * 0.6;
-  fragColor.z *= 0.5 + brightness * 0.5;
+  // 🔥 CRITICAL FIX
+  // Blend rays INTO color instead of multiplying
+  vec3 color = mix(vec3(1.0), raysColor, intensity);
 
   if (saturation != 1.0) {
-    float gray = dot(fragColor.rgb, vec3(0.299, 0.587, 0.114));
-    fragColor.rgb = mix(vec3(gray), fragColor.rgb, saturation);
+    float gray = dot(color, vec3(0.299, 0.587, 0.114));
+    color = mix(vec3(gray), color, saturation);
   }
 
-  fragColor.rgb *= raysColor;
-}
-
-void main() {
-  vec4 color;
-  mainImage(color, gl_FragCoord.xy);
-  gl_FragColor  = color;
+  gl_FragColor = vec4(color, intensity);
 }`;
 
       const uniforms: Uniforms = {
