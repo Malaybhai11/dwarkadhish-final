@@ -15,6 +15,7 @@ import {
   Building2,
   ArrowRight,
   Quote,
+  Link,
 } from "lucide-react";
 
 import { Star } from "lucide-react";
@@ -994,7 +995,9 @@ export default function USPPage() {
               flex items-center gap-3
             "
           >
-            Explore Products
+            <Link href="/shop">
+              Explore Products
+            </Link>
             <ArrowRight
               size={18}
               className="transition-transform group-hover:translate-x-1"
