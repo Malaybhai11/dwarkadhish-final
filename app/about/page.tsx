@@ -1,6 +1,6 @@
 "use client";
 import { Navbar, NavbarItem, NavbarButton } from "@/components/Landing-page-comp/Navbar";
-import GlareHover from "@/components/GlareHover";
+// import GlareHover from "@/components/GlareHover";
 
 import { motion } from "framer-motion";
 

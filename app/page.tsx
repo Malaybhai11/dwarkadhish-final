@@ -4,6 +4,7 @@ import Hero from "@/components/Landing-page-comp/Hero-page";
 import Swiper from "@/components/Landing-page-comp/Swiper";
 import LokingFor from "@/components/Landing-page-comp/LookingFor";
 import ProductSlider from "@/components/Landing-page-comp/Products-swiper";
+import Footer from "@/components/Landing-page-comp/Footer";
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
         sparkCount={8}
         duration={400}
       />
+      <Footer />
     </div>
   );
 }

@@ -82,9 +82,8 @@ export function Navbar({ children }: { children: React.ReactNode }) {
     <>
       {/* Desktop Navbar */}
       <nav
-        className={`fixed left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-          isScrolled ? 'top-4' : 'top-0'
-        }`}
+        className={`fixed left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'top-4' : 'top-0'
+          }`}
         aria-label="Main navigation"
       >
         <div
@@ -141,7 +140,7 @@ export function Navbar({ children }: { children: React.ReactNode }) {
             hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2
             transition-all duration-500
           `}>
-             <div className={`
+            <div className={`
                flex items-center gap-1 p-1 rounded-full transition-all duration-500
                ${isScrolled ? 'bg-transparent' : 'bg-transparent'}
              `}>
