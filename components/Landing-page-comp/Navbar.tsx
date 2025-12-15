@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect, Children, isValidElement, ReactElement } from 'react';
-import { Menu, X, Search, Globe } from 'lucide-react';
-import { div } from 'framer-motion/client';
+import { Menu, X } from 'lucide-react';
 
 export interface NavbarItemProps {
   label: string;
@@ -35,7 +34,7 @@ export function Navbar({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY >= 80);
+      setIsScrolled(window.scrollY >= 20);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -83,254 +82,184 @@ export function Navbar({ children }: { children: React.ReactNode }) {
     <>
       {/* Desktop Navbar */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50"
+        className={`fixed left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          isScrolled ? 'top-4' : 'top-0'
+        }`}
         aria-label="Main navigation"
       >
         <div
           className={`
-            relative
-            mx-auto 
-            transition-all duration-300 ease-[cubic-bezier(0.2,0.9,0.2,1)]
+            relative flex items-center justify-between
+            transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
             ${isScrolled
-              ? 'w-[92%] md:w-[90%] lg:w-[760px] rounded-[24px] h-16 md:h-[72px]'
-              : 'w-full h-16 md:h-[84px] rounded-none'
+              ? 'w-[90%] md:w-[70%] lg:w-[60rem] h-14 md:h-16 rounded-full bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg shadow-black/5'
+              : 'w-full h-20 md:h-24 bg-transparent border-transparent'
             }
-            ${isScrolled
-              ? 'bg-black/[0.06]  backdrop-blur-[12px] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)]'
-              : 'bg-transparent border-0 backdrop-blur-0 shadow-none'
-            }
+            px-4 md:px-8
           `}
-          style={{
-            background: isScrolled
-              ? 'linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.05))'
-              : 'transparent',
-            transform: isScrolled ? 'translateY(16px) scale(1.002)' : 'translateY(0) scale(1)',
-            marginTop: 0,
-          }}
         >
-          <div className="h-full px-4 md:px-6 lg:px-8 flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <a
-                href="#"
-                className="flex items-center gap-3 group focus:outline-none focus:ring-3 focus:ring-black/12 rounded-lg px-2 py-1 -mx-2 -my-1 transition-all duration-300 active:scale-95"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-              >
-                <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-gradient-to-br flex items-center justify-center overflow-hidden shadow-lg transition-all duration-300 ">
-                  <img
-                    src="/main-logo.png"
-                    alt="Dwarkadhish Logo"
-                    className="w-full h-full object-cover "
-                  />
-                </div>
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <a
+              href="#"
+              className="flex items-center gap-2 group focus:outline-none"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <div className={`
+                relative overflow-hidden rounded-lg transition-all duration-500 shadow-sm
+                ${isScrolled ? 'w-8 h-8 md:w-10 md:h-10' : 'w-10 h-10 md:w-12 md:h-12'}
+              `}>
+                <img
+                  src="/main-logo2.png"
+                  alt="Dwarkadhish Logo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-                <div className="flex flex-col">
-                  <span className="text-black text-5xl md:text-2xl font-bold tracking-tight hidden md:block drop-shadow-lg transition-all ">
-                    Dwarkadhish
-                  </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 via-gray-300 to-gray-300 text-3xl md:text-lg font-medium tracking-wide hidden md:block transition-all duration-300 group-hover:from-gray-200 group-hover:via-black group-hover:to-gray-200">
-                    Paper Product
-                  </span>
-                </div>
-              </a>
-            </div>
+              <div className="flex flex-col justify-center">
+                <span className={`
+                  font-bold tracking-tight text-black transition-all duration-500
+                  ${isScrolled ? 'text-lg' : 'text-xl md:text-2xl'}
+                `}>
+                  Dwarkadhish
+                </span>
+                <span className={`
+                  text-gray-500 font-medium tracking-wide transition-all duration-500 origin-left
+                  ${isScrolled ? 'hidden opacity-0 scale-90' : 'text-xs md:text-sm block opacity-100 scale-100'}
+                `}>
+                  Paper Product
+                </span>
+              </div>
+            </a>
+          </div>
 
-            {/* Desktop Navigation Links - Center */}
-            <div className="hidden lg:flex items-center gap-1 absolute left-1/2 pl-20 -translate-x-1/2">
+          {/* Desktop Navigation Links - Center */}
+          <div className={`
+            hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2
+            transition-all duration-500
+          `}>
+             <div className={`
+               flex items-center gap-1 p-1 rounded-full transition-all duration-500
+               ${isScrolled ? 'bg-transparent' : 'bg-transparent'}
+             `}>
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="px-4 py-2 text-gray-700 hover:text-black transition-colors relative group focus:outline-none focus:ring-3 focus:ring-black/12 rounded-lg"
+                  className="
+                    relative px-4 py-2 rounded-full text-sm font-medium text-gray-700
+                    hover:text-black transition-colors duration-200
+                    group overflow-hidden
+                  "
                 >
-                  {link.label}
-                  <span className="absolute bottom-1 left-4 right-4 h-px bg-black origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  <span className="relative z-10">{link.label}</span>
+                  <span className="absolute inset-0 bg-black/5 scale-0 group-hover:scale-100 rounded-full transition-transform duration-200 origin-center" />
                 </a>
               ))}
             </div>
-
-            {/* Desktop Actions - Right */}
-            <div className="hidden md:flex items-center gap-3">
-              {navButtons.map((btn) => (
-                btn.variant === 'simple' ? (
-                  <a
-                    key={btn.label}
-                    href={btn.href}
-                    className="
-                      relative px-4 py-1.5 rounded-full
-                      text-black text-sm font-medium
-                      bg-black/10 backdrop-blur-md
-                      border border-black/20
-                      shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                      hover:bg-black/20
-                      hover:shadow-[0_8px_30px_rgba(139,92,246,0.35)]
-                      transition-all duration-300
-                      focus:outline-none focus:ring-2 focus:ring-violet-400/60
-                      overflow-hidden
-                    "
-                  >
-                    <span className="relative z-10">{btn.label}</span>
-                    <span
-                      className="
-                        absolute inset-0
-                        bg-gradient-to-br from-black/40 via-transparent to-transparent
-                        opacity-40
-                        pointer-events-none
-                      "
-                    />
-                  </a>
-                ) : (
-                  <a
-                    key={btn.label}
-                    href={btn.href}
-                    className="
-                      relative px-4 py-1.5 rounded-full
-                      text-black text-sm font-medium
-                      bg-violet-500/20 backdrop-blur-md
-                      border border-violet-400/30
-                      shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                      hover:bg-violet-500/30
-                      hover:shadow-[0_8px_30px_rgba(139,92,246,0.45)]
-                      transition-all duration-300
-                      focus:outline-none focus:ring-2 focus:ring-violet-400/60
-                      overflow-hidden
-                    "
-                  >
-                    <span className="relative z-10">{btn.label}</span>
-                    <span
-                      className="
-                        absolute inset-0
-                        bg-gradient-to-br from-black/50 via-transparent to-transparent
-                        opacity-50
-                        pointer-events-none
-                      "
-                    />
-                  </a>
-                )
-              ))}
-            </div>
-
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 text-black/75 hover:text-black transition-colors rounded-lg hover:bg-black/5 focus:outline-none focus:ring-3 focus:ring-black/12"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-              aria-expanded={isMobileMenuOpen}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-
-            {/* Mobile Logo - Centered */}
-            <div className="md:hidden absolute left-1/2 -translate-x-1/2">
-              <span className="text-black tracking-tight">Dwarkadhish
-                Paper Product</span>
-            </div>
           </div>
+
+          {/* Desktop Actions - Right */}
+          <div className="hidden md:flex items-center gap-3">
+            {navButtons.map((btn) => (
+              btn.variant === 'simple' ? (
+                <a
+                  key={btn.label}
+                  href={btn.href}
+                  className={`
+                    px-5 py-2 text-sm font-medium text-black rounded-full backdrop-blur-sm transition-all shadow-sm hover:shadow
+                    ${isScrolled ? 'bg-white/50 hover:bg-white/80 border border-black/5' : 'bg-white/40 hover:bg-white/60 border border-white/20'}
+                  `}
+                >
+                  {btn.label}
+                </a>
+              ) : (
+                <a
+                  key={btn.label}
+                  href={btn.href}
+                  className="
+                    px-5 py-2 text-sm font-medium text-white
+                    bg-black hover:bg-black/80
+                    rounded-full transition-all
+                    shadow-md hover:shadow-lg hover:-translate-y-0.5
+                  "
+                >
+                  {btn.label}
+                </a>
+              )
+            ))}
+          </div>
+
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-black hover:bg-black/5 rounded-full transition-colors focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
       <div
         className={`
-          fixed inset-0 z-40 md:hidden
-          transition-all duration-300 ease-[cubic-bezier(0.2,0.9,0.2,1)]
+          fixed inset-0 z-40 md:hidden bg-white/80 backdrop-blur-2xl
+          transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1)
           ${isMobileMenuOpen
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
           }
         `}
-        style={{ top: isScrolled ? '92px' : '64px' }}
+        style={{ top: '0', paddingTop: '100px' }}
       >
-        <div
-          className="absolute inset-0 bg-white/95 backdrop-blur-xl"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-        <div className="relative p-4">
-          <div className="bg-black/[0.06] border border-black/[0.08] rounded-3xl p-6 backdrop-blur-[12px] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)]">
-            {/* Mobile Navigation Links */}
-            <div className="flex flex-col gap-2 mb-6">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-3 text-black/75 hover:text-black hover:bg-black/5 rounded-xl transition-all focus:outline-none focus:ring-3 focus:ring-black/12"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+        <div className="container mx-auto px-6 pb-8 flex flex-col gap-2">
+          {navLinks.map((link, idx) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="group flex items-center justify-between text-2xl font-medium text-black/80 hover:text-black py-4 border-b border-black/5"
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={{
+                transitionDelay: isMobileMenuOpen ? `${idx * 50}ms` : '0ms',
+                opacity: isMobileMenuOpen ? 1 : 0,
+                transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(10px)',
+                transitionProperty: 'opacity, transform',
+                transitionDuration: '300ms'
+              }}
+            >
+              {link.label}
+              <span className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center -rotate-45 group-hover:rotate-0 transition-transform duration-300">
+                →
+              </span>
+            </a>
+          ))}
 
-            {/* Mobile Actions */}
-            <div className="flex flex-col gap-2 pt-4 border-t border-black/[0.08]">
-              <button
-                className="flex items-center gap-3 px-4 py-3 text-black/75 hover:text-black hover:bg-black/5 rounded-xl transition-all focus:outline-none focus:ring-3 focus:ring-black/12"
+          <div className="flex flex-col gap-3 mt-8">
+            {navButtons.map((btn) => (
+              <a
+                key={btn.label}
+                href={btn.href}
+                className={`
+                  w-full py-4 rounded-2xl text-center font-medium text-lg transition-transform active:scale-[0.98]
+                  ${btn.variant === 'colored'
+                    ? 'bg-black text-white shadow-xl shadow-black/10'
+                    : 'bg-white text-black border border-black/10 shadow-sm'}
+                `}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                <Search className="w-5 h-5" />
-                <span>Search</span>
-              </button>
-              <button
-                className="flex items-center gap-3 px-4 py-3 text-black/75 hover:text-black hover:bg-black/5 rounded-xl transition-all focus:outline-none focus:ring-3 focus:ring-black/12"
-              >
-                <Globe className="w-5 h-5" />
-                <span>Language</span>
-              </button>
-
-              {navButtons.map((btn) => (
-                btn.variant === 'simple' ? (
-                  <a
-                    key={btn.label}
-                    href={btn.href}
-                    className="
-                      relative mt-2 flex items-center justify-center
-                      px-4 py-3 rounded-2xl
-                      text-black font-medium
-                      bg-black/10 backdrop-blur-md
-                      border border-black/20
-                      shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                      hover:bg-black/20
-                      active:scale-[0.97]
-                      transition-all duration-300
-                      focus:outline-none focus:ring-2 focus:ring-violet-400/60
-                      overflow-hidden
-                    "
-                  >
-                    <span className="relative z-10">{btn.label}</span>
-                    <span className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-transparent opacity-40 pointer-events-none" />
-                  </a>
-                ) : (
-                  <a
-                    key={btn.label}
-                    href={btn.href}
-                    className="
-                      relative mt-1 flex items-center justify-center
-                      px-4 py-3 rounded-2xl
-                      text-black font-medium
-                      bg-violet-500/20 backdrop-blur-md
-                      border border-violet-400/30
-                      shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                      hover:bg-violet-500/30
-                      hover:shadow-[0_8px_30px_rgba(139,92,246,0.45)]
-                      active:scale-[0.97]
-                      transition-all duration-300
-                      focus:outline-none focus:ring-2 focus:ring-violet-400/60
-                      overflow-hidden
-                    "
-                  >
-                    <span className="relative z-10">{btn.label}</span>
-                    <span className="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-transparent opacity-50 pointer-events-none" />
-                  </a>
-                )
-              ))}
-            </div>
+                {btn.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
