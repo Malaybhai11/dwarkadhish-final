@@ -1,5 +1,5 @@
 "use client";
-import { Navbar, NavbarItem, NavbarButton } from "@/components/Navbar";
+import { Navbar, NavbarItem, NavbarButton } from "@/components/Landing-page-comp/Navbar";
 import GlareHover from "@/components/GlareHover";
 
 import { motion } from "framer-motion";
@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 export default function AboutUs() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-indigo-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-white text-black selection:bg-indigo-500/30 overflow-x-hidden">
       <Navbar>
         <NavbarItem label="Home" href="/" />
         <NavbarItem label="Shop" href="/shop" />
@@ -467,54 +467,12 @@ export default function AboutUs() {
 
 
       {/* Capabilities - Asymmetric Grid */}
-      <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Variable Data - Featured with Glare */}
-          <GlareHover
-            width="100%"
-            height="400px" // Fixed height for visual consistency
-            borderRadius="24px"
-            glareColor="#ffffff"
-            glareOpacity={0.1}
-            background="#0f172a" // Slate-900
-            borderColor="rgba(255,255,255,0.05)"
-          >
-            <div className="h-full p-10 flex flex-col justify-end relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-10 opacity-10">
-                <FileText className="w-32 h-32" />
-              </div>
-              <h3 className="text-3xl font-bold text-white mb-2 relative z-10">
-                Variable Data Printing
-              </h3>
-              <p className="text-slate-400 relative z-10">
-                Personalization at industrial scale. Unique barcodes,
-                addressing, and data points per sheet for direct mail and
-                records.
-              </p>
-            </div>
-          </GlareHover>
-
-          {/* Industrial Scale - Standard Card */}
-          <div className="h-[400px] rounded-[24px] bg-slate-900/20 border border-white/5 p-10 flex flex-col justify-end relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
-            <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Building2 className="w-32 h-32" />
-            </div>
-            <h3 className="text-3xl font-bold text-white mb-2 relative z-10">
-              Industrial Scale
-            </h3>
-            <p className="text-slate-400 relative z-10">
-              Equipped for massive tenders. Consistent quality across millions
-              of impressions for Education Boards and Government.
-            </p>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Clients - Minimalist Cloud */}
       <section className="py-24 border-t border-white/5 text-center">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-2xl font-medium text-white mb-12">
+          <h2 className="text-2xl font-medium text-black mb-12">
             Trusted Infrastructure Partners
           </h2>
 
