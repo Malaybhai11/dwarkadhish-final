@@ -71,7 +71,7 @@ const products = [
   },
 ];
 
-const ProductSlider = () => {
+export default function ProductSlider(){
   // We clone the first 4 items to create an infinite loop illusion
   // So the array becomes [1,2,3,4,5,6,7,8, 1,2,3,4]
   const [extendedProducts] = useState([...products, ...products.slice(0, 4)]);
@@ -169,18 +169,16 @@ const ProductSlider = () => {
     setTouchStart(0);
     setTouchEnd(0);
   };
-
-  return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8">
+return (
+  <section className="w-full bg-white py-10">
+    <div className="max-w-7xl mx-auto px-4">
+      
       {/* Header */}
       <div className="flex justify-between items-center mb-6 px-1">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
           Our Products
         </h2>
-        <div className="flex space-x-4 text-sm font-medium text-gray-500">
-          <button className="text-black underline decoration-2 underline-offset-4">Long Books</button>
-          <button className="hover:text-black transition-colors">Note Book</button>
-        </div>
+       
       </div>
 
       {/* Main Slider Area */}
@@ -192,31 +190,33 @@ const ProductSlider = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Left Arrow (Hidden on Mobile) */}
+        {/* Left Arrow */}
         <button
           onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100"
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex opacity-0 group-hover:opacity-100"
           aria-label="Previous slide"
         >
           <ChevronLeft size={24} />
         </button>
 
-        {/* Right Arrow (Hidden on Mobile) */}
+        {/* Right Arrow */}
         <button
           onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100"
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex opacity-0 group-hover:opacity-100"
           aria-label="Next slide"
         >
           <ChevronRight size={24} />
         </button>
 
         {/* Viewport */}
-        <div className="overflow-hidden w-full pb-8"> {/* pb-8 for shadow space */}
+        <div className="overflow-hidden w-full pb-8">
           <div
             className="flex"
             style={{
               transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
-              transition: isTransitioning ? "transform 500ms ease-in-out" : "none",
+              transition: isTransitioning
+                ? "transform 500ms ease-in-out"
+                : "none",
             }}
             onTransitionEnd={handleTransitionEnd}
           >
@@ -226,42 +226,51 @@ const ProductSlider = () => {
                 className="flex-shrink-0 px-2 md:px-3"
                 style={{ width: `${100 / cardsToShow}%` }}
               >
-                {/* Card */}
                 <div className="bg-white rounded-xl border border-gray-100 p-3 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col group/card">
                   
-                  {/* Image Area */}
+                  {/* Image */}
                   <div className="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-gray-50">
                     <img
                       src={product.image}
                       alt={product.title}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-                      draggable="false" 
+                      draggable={false}
                     />
-                    
-                    {/* Badge */}
+
                     {product.badge && (
-                      <span className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-1 text-white rounded shadow-sm ${product.badge === 'SOLD OUT' ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+                      <span
+                        className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-1 text-white rounded shadow-sm ${
+                          product.badge === "SOLD OUT"
+                            ? "bg-rose-500"
+                            : "bg-emerald-500"
+                        }`}
+                      >
                         {product.badge}
                       </span>
                     )}
 
-                    {/* Quick Action Button (Visible on Hover) */}
                     <button className="absolute bottom-3 right-3 bg-white text-black p-2 rounded-full shadow-lg translate-y-10 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-300">
-                       <ShoppingCart size={16} />
+                      <ShoppingCart size={16} />
                     </button>
                   </div>
 
                   {/* Details */}
                   <div className="flex flex-col flex-grow">
-                    <p className="text-xs font-medium text-gray-400 mb-1 tracking-wide">{product.category}</p>
+                    <p className="text-xs font-medium text-gray-400 mb-1 tracking-wide">
+                      {product.category}
+                    </p>
+
                     <h3 className="text-sm font-bold text-gray-800 leading-tight mb-2 line-clamp-2 min-h-[2.5em]">
                       {product.title}
                     </h3>
-                    
-                    {/* Fake Star Rating */}
+
                     <div className="flex items-center mb-3">
-                      {[1,2,3,4,5].map((star) => (
-                        <svg key={star} className="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <svg
+                          key={star}
+                          className="w-3 h-3 text-yellow-400 fill-current"
+                          viewBox="0 0 20 20"
+                        >
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -269,8 +278,12 @@ const ProductSlider = () => {
                     </div>
 
                     <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-3">
-                       <span className="text-lg font-extrabold text-gray-900">{product.price}</span>
-                       <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">In Stock</span>
+                      <span className="text-lg font-extrabold text-gray-900">
+                        {product.price}
+                      </span>
+                      <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
+                        In Stock
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -279,22 +292,21 @@ const ProductSlider = () => {
           </div>
         </div>
 
-        {/* Mobile Pagination Dots (Visible only on mobile/tablet) */}
+        {/* Mobile Dots */}
         <div className="flex justify-center space-x-2 mt-4 md:hidden">
-            {products.map((_, idx) => (
-                <div 
-                    key={idx} 
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                        // Logic to highlight correct dot even when in "cloned" zone
-                        (currentIndex % products.length) === idx ? 'w-6 bg-black' : 'w-1.5 bg-gray-300'
-                    }`} 
-                />
-            ))}
+          {products.map((_, idx) => (
+            <div
+              key={idx}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                currentIndex % products.length === idx
+                  ? "w-6 bg-black"
+                  : "w-1.5 bg-gray-300"
+              }`}
+            />
+          ))}
         </div>
-
       </div>
     </div>
-  );
-};
-
-export default ProductSlider;
+  </section>
+);
+}
