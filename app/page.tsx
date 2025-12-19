@@ -26,21 +26,21 @@ export default function App() {
     <div className="min-h-screen bg-white overflow-x-hidden relative">
 
       {/* 1. RENDER LOADER CONDITIONALLY */}
-      {/* {loading && (
+       {loading && (
         <BookLoader 
           onTransitionStart={() => setReveal(true)} // When loader starts exiting, reveal content
           onComplete={() => setLoading(false)}      // When animation is totally done, unmount loader
         />
-      )} */}
+      )} 
 
       {/* 2. MAIN CONTENT (Controlled by 'reveal' state) */}
-      {/* <div 
+       <div 
         className={`relative z-10 transition-all duration-1000 ease-out`}
         style={{
            transform: reveal ? 'scale(1) translateY(0)' : 'scale(0.98) translateY(20px)',
            opacity: reveal ? 1 : 0
         }}
-      > */}
+      > 
 
       {/* NAVBAR */}
       <Navbar>
@@ -93,15 +93,15 @@ export default function App() {
         </section>
 
         {/* SECTIONS */}
-        {/* <div className={`transition-all duration-1000 delay-500 ease-out ${reveal ? 'opacity-100' : 'opacity-0'}`}>
+         <div className={`transition-all duration-1000 delay-500 ease-out ${reveal ? 'opacity-100' : 'opacity-0'}`}>
              
              <section className="w-full bg-white py-20" />
              <section className="w-full bg-white py-0" />
              <section className="w-full bg-white py-2" />
              <section className="w-full bg-white py-5" /> 
-          </div> */}
+          </div> 
       </ClickSpark>
-      {/* </div> */}
+       </div> 
     </div>
   );
 }
