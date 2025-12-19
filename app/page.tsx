@@ -88,9 +88,7 @@ export default function App() {
           <TrustBadges />
         </section>
 
-        <section>
-          <Footer />
-        </section>
+        
 
         {/* SECTIONS */}
          <div className={`transition-all duration-1000 delay-500 ease-out ${reveal ? 'opacity-100' : 'opacity-0'}`}>
@@ -100,6 +98,10 @@ export default function App() {
              <section className="w-full bg-white py-2" />
              <section className="w-full bg-white py-5" /> 
           </div> 
+
+          <section>
+          <Footer />
+        </section>
       </ClickSpark>
        </div> 
     </div>
