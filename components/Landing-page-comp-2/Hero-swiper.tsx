@@ -17,13 +17,15 @@ export default function HeroSwiper() {
   const [index, setIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
 
+  // Auto slide
   useEffect(() => {
     const id = setInterval(() => {
-      setIndex((i) => i + 1);
+      setIndex((prev) => prev + 1);
     }, 4000);
     return () => clearInterval(id);
   }, []);
 
+  // Infinite loop fix
   useEffect(() => {
     if (index === slides.length) {
       const t1 = setTimeout(() => {
@@ -43,66 +45,65 @@ export default function HeroSwiper() {
   }, [index]);
 
   return (
-    <section className="relative w-full h-[70vh] sm:h-[80vh] overflow-hidden  top-22">
-      <div
-        className={`flex h-full ${
-          isTransitioning
-            ? "transition-transform duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
-            : ""
-        }`}
-        style={{
-          transform: `translateX(calc(-${index * 100}% - ${index * 0.5}%))`,
-          willChange: "transform",
-        }}
-      >
-        {extendedSlides.map((src, i) => (
-          <div key={i} className="relative min-w-full h-full overflow-hidden">
-            <div
-              className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
-              style={{
-                transform: `translateX(${index * -2}px)`,
-                willChange: "transform",
-              }}
-            >
+    <section className="relative w-full pt-[72px] sm:pt-[88px] bg-white">
+      {/* ASPECT RATIO CONTAINER */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-slate-100">
+        {/* SLIDER */}
+        <div
+          className={`flex h-full ${
+            isTransitioning
+              ? "transition-transform duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
+              : ""
+          }`}
+          style={{
+            transform: `translateX(-${index * 100}%)`,
+            willChange: "transform",
+          }}
+        >
+          {extendedSlides.map((src, i) => (
+            <div key={i} className="relative min-w-full h-full flex items-center justify-center">
               <Image
                 src={src}
-                alt="Hero image"
+                alt="Hero banner"
                 fill
-                sizes="100vw"
                 priority={i === 0}
-                className="object-cover"
+                className="object-contain"
+                sizes="100vw"
               />
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Arrows */}
-      <button
-        onClick={() => setIndex((i) => Math.max(i - 1, 0))}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-9 w-9 items-center justify-center rounded-full bg-white/80"
-      >
-        <ChevronLeft />
-      </button>
+        {/* LEFT ARROW */}
+        <button
+          onClick={() => setIndex((i) => Math.max(i - 1, 0))}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur shadow"
+        >
+          <ChevronLeft />
+        </button>
 
-      <button
-        onClick={() => setIndex((i) => i + 1)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-9 w-9 items-center justify-center rounded-full bg-white/80"
-      >
-        <ChevronRight />
-      </button>
+        {/* RIGHT ARROW */}
+        <button
+          onClick={() => setIndex((i) => i + 1)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur shadow"
+        >
+          <ChevronRight />
+        </button>
 
-      {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`h-2.5 w-2.5 rounded-full ${
-              i === index % slides.length ? "bg-white" : "bg-white/50"
-            }`}
-          />
-        ))}
+        {/* DOTS */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-10 bg-black/20 backdrop-blur px-3 py-1.5 rounded-full">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`h-2.5 w-2.5 rounded-full transition-all ${
+                i === index % slides.length
+                  ? "bg-white scale-110"
+                  : "bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

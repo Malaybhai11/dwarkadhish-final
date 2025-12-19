@@ -90,9 +90,7 @@ const NotebookHero = () => {
                     
                     {/* Placeholder Content Area */}
                     <div className="text-center px-2 z-20 opacity-40">
-                      <p className="text-[10px] md:text-xs font-medium tracking-wide text-slate-400 uppercase leading-tight">
-                        Add Your Notebook<br/>Image Here
-                      </p>
+                      <img src="/images/notebook2.png" alt="" />
                     </div>
 
                     {/* Faint Page Lines (Visual Detail) */}

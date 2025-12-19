@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   Gift,
   Briefcase,
@@ -24,6 +25,7 @@ interface CategoryData {
   title: string;
   subtitle: string;
   icon: React.ElementType;
+  image?: string;
   imagePlaceholderText: string;
   bullets: string[];
   ctaLabel: string;
@@ -40,6 +42,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Corporate Gifting",
     subtitle: "Bulk • Branding • Delivery",
     icon: Gift,
+    image: "/images/notebook2.png",
     imagePlaceholderText: "CATEGORY VISUAL GOES HERE",
     bullets: [
       "Bulk orders with custom branding",
@@ -54,6 +57,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Office Essentials",
     subtitle: "Stationery • Desk • Supplies",
     icon: Briefcase,
+    image: "/images/notebook3.png",
     imagePlaceholderText: "OFFICE VISUAL GOES HERE",
     bullets: [
       "Premium notebooks & stationery",
@@ -68,6 +72,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Wellness Hampers",
     subtitle: "Health • Care • Organic",
     icon: Heart,
+    image: "/images/notebook4.png",
     imagePlaceholderText: "WELLNESS VISUAL GOES HERE",
     bullets: [
       "Curated wellness gift boxes",
@@ -82,6 +87,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Tech Accessories",
     subtitle: "Gadgets • Power • Audio",
     icon: Smartphone,
+    image: "/images/notebook5.png",
     imagePlaceholderText: "TECH VISUAL GOES HERE",
     bullets: [
       "Power banks & accessories",
@@ -96,6 +102,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Awards & Recognition",
     subtitle: "Trophies • Plaques",
     icon: Trophy,
+    image: "/images/notebook6.png",
     imagePlaceholderText: "AWARDS VISUAL GOES HERE",
     bullets: [
       "Custom engraved awards",
@@ -273,10 +280,23 @@ export default function PopularCategories() {
                     
                     {/* IMAGE — DOMINANT */}
                     <div className="lg:col-span-7 xl:col-span-8">
-                      <div className="w-full h-[280px] sm:h-[360px] lg:h-[480px] xl:h-[540px] rounded-2xl border-2 border-dashed border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center overflow-hidden group">
-                        <span className="text-slate-400 font-bold text-xs md:text-sm tracking-widest uppercase group-hover:scale-105 transition-transform">
-                          {active.imagePlaceholderText}
-                        </span>
+                      <div className="w-full h-[280px] sm:h-[360px] lg:h-[480px] xl:h-[540px] rounded-2xl overflow-hidden shadow-lg relative bg-gradient-to-br from-slate-50 to-slate-100">
+                        {active.image ? (
+                          <Image
+                            src={active.image}
+                            alt={active.title}
+                            fill
+                            className="object-cover hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 66vw"
+                            priority={active.id === "corporate-gifting"}
+                          />
+                        ) : (
+                          <div className="w-full h-full border-2 border-dashed border-slate-200 flex items-center justify-center group">
+                            <span className="text-slate-400 font-bold text-xs md:text-sm tracking-widest uppercase group-hover:scale-105 transition-transform">
+                              {active.imagePlaceholderText}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
