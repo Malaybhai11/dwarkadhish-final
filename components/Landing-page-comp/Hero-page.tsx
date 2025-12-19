@@ -1,28 +1,22 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Sparkles, ArrowRight } from 'lucide-react'
 
-/* Animation variants */
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.18,
-      delayChildren: 0.25,
-    },
+    transition: { staggerChildren: 0.15 },
   },
 }
 
 const item = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
+    transition: { duration: 0.55, ease: 'easeOut' },
   },
 }
 
@@ -34,7 +28,7 @@ export default function HeroPage() {
       initial="hidden"
       animate="show"
       className="
-        relative w-full top-25
+        relative w-full top-19
         min-h-[100svh] md:min-h-[75vh]
         bg-cover bg-no-repeat
         bg-[position:center_30%]
@@ -43,49 +37,77 @@ export default function HeroPage() {
       style={{ backgroundImage: "url('/hero-image4.png')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/55" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl min-h-[100svh] md:min-h-[75vh] px-5 sm:px-6 flex items-center">
-        <div className="max-w-xl text-white">
-
-          {/* Eyebrow */}
-          <motion.span
-            variants={item}
-            className="block mb-3 text-xs sm:text-sm tracking-widest uppercase text-white/65"
-          >
-            Trusted Paper Manufacturing
-          </motion.span>
-
-          {/* Headline */}
-          <motion.h1
-            variants={item}
-            className="text-3xl sm:text-4xl md:text-6xl font-semibold leading-tight"
-          >
-            Paper That
-            <br />
-            Defines Quality
-            <br />
-            in Every Page
-          </motion.h1>
-
-          {/* Divider */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-[90svh] flex items-center">
+        <div className="max-w-2xl text-white text-center sm:text-left">
+          
+          {/* Trust badge */}
           <motion.div
             variants={item}
-            className="mt-5 h-px w-20 bg-gradient-to-r from-blue-500 to-transparent"
-          />
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-5"
+          >
+            <Sparkles className="w-4 h-4 text-orange-400" />
+            <span className="text-xs font-semibold">
+              Gives more than expected
+            </span>
+          </motion.div>
 
-          {/* Description */}
+          {/* Heading */}
+          <motion.h1
+            variants={item}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4"
+          >
+            Custom Books,
+            <br />
+            Printed & Delivered to You
+          </motion.h1>
+
+          {/* Subheading */}
           <motion.p
             variants={item}
-            className="mt-6 text-sm sm:text-base md:text-lg text-white/85 leading-relaxed"
+            className="text-sm sm:text-base lg:text-lg text-white/85 max-w-xl mb-7"
           >
-            <span className="font-semibold text-white">
-              Dwarkadhish Paper Products
-            </span>{" "}
-            manufactures reliable notebooks, diaries, calendars, and custom paper
-            solutions for everyday professional use.
+            Upload your design or choose a template. We print premium-quality
+            custom books and deliver them anywhere in India.
           </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            variants={item}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+          >
+            {/* Primary CTA */}
+            <a
+              href="/custom"
+              className="
+                inline-flex items-center justify-center gap-2
+                px-6 py-3 rounded-xl
+                bg-blue-600 hover:bg-blue-700
+                text-sm sm:text-base font-semibold
+                transition-colors
+              "
+            >
+              Create Custom Book
+              <ArrowRight className="w-4 h-4" />
+            </a>
+
+            {/* Secondary CTA */}
+            <a
+              href="/samples"
+              className="
+                inline-flex items-center justify-center
+                px-6 py-3 rounded-xl
+                border border-white/30
+                text-sm sm:text-base font-medium
+                hover:bg-white/10
+                transition-colors
+              "
+            >
+              View Samples
+            </a>
+          </motion.div>
 
         </div>
       </div>

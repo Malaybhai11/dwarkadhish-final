@@ -26,15 +26,7 @@ const fadeVariants = {
 };
 
 export default function BannerSwiper() {
-  const [index, setIndex] = useState(0);
-
-  const next = () => setIndex((i) => (i + 1) % banners.length);
-  const prev = () => setIndex((i) => (i - 1 + banners.length) % banners.length);
-
-  useEffect(() => {
-    const timer = setInterval(next, 4000);
-    return () => clearInterval(timer);
-  }, []);
+ 
 
   return (
     <section className="w-full bg-white py-10 relative">
@@ -42,15 +34,14 @@ export default function BannerSwiper() {
         <div className="relative aspect-[3.5/1] md:aspect-[4/1] rounded-lg overflow-hidden bg-white shadow-sm">
           <AnimatePresence mode="wait">
             <motion.div
-              key={index}
-              variants={fadeVariants}
+             
               initial="initial"
               animate="animate"
               exit="exit"
               className="absolute inset-0 flex items-center justify-center"
             >
               <Image
-                src={banners[index]}
+                src="/banners/banner-2.jpg"
                 alt="Banner"
                 fill
                 priority

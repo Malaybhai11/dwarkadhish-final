@@ -30,19 +30,7 @@ const products = [
     image: "/dummy/notebook-metallica.jpg",
     soldOut: true,
   },
-  {
-    id: 5,
-    description: "Single Line YOUVA Long Book - A4 Size (Soft Bound) Stellar Pack Of 1",
-    price: "₹ 180.00",
-    image: "/dummy/notebook-stellar.jpg",
-  },
-  {
-    id: 6,
-    description: "Navneet Youva | STELLAR Green Drawing Book for Students and Budding Artists | Size: A4 size - 21 cm x 29.7 cm | 56 Pages | Pack of 6",
-    price: "₹ 390.00",
-    image: "/dummy/drawing-book-stellar.jpg",
-    soldOut: true,
-  },
+ 
 ];
 
 // Helper for star ratings
@@ -92,7 +80,7 @@ export default function SchoolEssentialsSection() {
             </h2>
 
             {/* PRODUCT GRID (3 columns on larger screens) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-10">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-x-4 gap-y-6">
 
               {products.map((product) => (
                 <div key={product.id} className="flex flex-col">

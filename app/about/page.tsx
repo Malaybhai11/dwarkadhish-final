@@ -130,15 +130,7 @@ export default function AboutUs() {
     <div className="md:col-span-6 md:row-span-2 relative group">
       <div className="absolute -inset-1 rounded-[30px] bg-gradient-to-br from-blue-200/40 via-transparent to-orange-200/30 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700" />
       
-      <GlareHover
-        width="100%"
-        height="100%"
-        borderRadius="28px"
-        glareColor="#2563eb"
-        glareOpacity={0.12}
-        borderColor="rgba(0,0,0,0.06)"
-        background="radial-gradient(circle at center, #ffffff 0%, #f8fafc 70%, #eef2ff 100%)"
-      >
+      
         <div className="relative h-full flex flex-col items-center justify-center p-10 text-center">
           <span className="text-[6rem] md:text-[7rem] font-black text-neutral-900 tracking-tighter leading-none">
             10<span className="text-4xl align-top text-neutral-500">+</span>
@@ -156,7 +148,7 @@ export default function AboutUs() {
           {/* Accent line */}
           <div className="mt-6 h-[3px] w-12 rounded-full bg-gradient-to-r from-blue-500 to-orange-400 transition-all duration-500 group-hover:w-20" />
         </div>
-      </GlareHover>
+      
     </div>
 
     {/* Capability — End to End */}

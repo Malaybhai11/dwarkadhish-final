@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ShoppingCart, ArrowRight, Shield, Award, Users } from "lucide-react";
 
 // 1. Dummy Data
 const products = [
@@ -71,9 +71,7 @@ const products = [
   },
 ];
 
-export default function ProductSlider(){
-  // We clone the first 4 items to create an infinite loop illusion
-  // So the array becomes [1,2,3,4,5,6,7,8, 1,2,3,4]
+export default function ProductSlider() {
   const [extendedProducts] = useState([...products, ...products.slice(0, 4)]);
   
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -81,16 +79,14 @@ export default function ProductSlider(){
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   
-  // Touch state for swiping
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
-  // Update cards based on screen size
   useEffect(() => {
     const updateCardsToShow = () => {
-      if (window.innerWidth < 768) setCardsToShow(1);      // Mobile: 1 card
-      else if (window.innerWidth < 1024) setCardsToShow(2); // Tablet: 2 cards
-      else setCardsToShow(4);                               // Desktop: 4 cards
+      if (window.innerWidth < 768) setCardsToShow(1);
+      else if (window.innerWidth < 1024) setCardsToShow(2);
+      else setCardsToShow(4);
     };
 
     updateCardsToShow();
@@ -98,48 +94,36 @@ export default function ProductSlider(){
     return () => window.removeEventListener("resize", updateCardsToShow);
   }, []);
 
-  // --- Navigation Logic ---
-
   const nextSlide = useCallback(() => {
     if (!isTransitioning) return;
-    
-    setCurrentIndex((prev) => {
-      // If we are at the end of the real list, we move into the "cloned" items
-      return prev + 1;
-    });
+    setCurrentIndex((prev) => prev + 1);
   }, [isTransitioning]);
 
   const prevSlide = useCallback(() => {
     if (!isTransitioning) return;
-
     setCurrentIndex((prev) => {
       if (prev === 0) return products.length - 1; 
       return prev - 1;
     });
   }, [isTransitioning]);
 
-  // --- Infinite Loop Magic ---
-  // When the transition ends, if we are in the "cloned" zone, reset to index 0 instantly
   const handleTransitionEnd = () => {
     if (currentIndex >= products.length) {
-      setIsTransitioning(false); // Turn off animation
-      setCurrentIndex(0);        // Jump to real 0
-      // Force a reflow/repaint so the browser accepts the jump, then turn anim back on
+      setIsTransitioning(false);
+      setCurrentIndex(0);
       setTimeout(() => setIsTransitioning(true), 50);
     }
   };
 
-  // --- Auto Play (3 Seconds) ---
   useEffect(() => {
     if (isHovered) return;
     const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
   }, [isHovered, nextSlide]);
 
-  // --- Swipe Logic (Mobile Best) ---
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
-    setIsHovered(true); // Pause auto-slide while touching
+    setIsHovered(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -154,159 +138,209 @@ export default function ProductSlider(){
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe) {
-      nextSlide();
-    }
-    if (isRightSwipe) {
-      if (currentIndex === 0) {
-        // Optional: Handle pulling at start, but for now simple prev
-        prevSlide();
-      } else {
-        prevSlide();
-      }
-    }
+    if (isLeftSwipe) nextSlide();
+    if (isRightSwipe) prevSlide();
     
     setTouchStart(0);
     setTouchEnd(0);
   };
-return (
-  <section className="w-full bg-white py-10">
-    <div className="max-w-7xl mx-auto px-4">
-      
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6 px-1">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
-          Our Products
-        </h2>
-       
-      </div>
 
-      {/* Main Slider Area */}
-      <div
-        className="relative group"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        {/* Left Arrow */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex opacity-0 group-hover:opacity-100"
-          aria-label="Previous slide"
+  return (
+    <section className="w-full bg-white py-10 sm:py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4">
+        
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6 sm:mb-8 px-1">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 uppercase tracking-wide">
+            Prefer Ready-Made Products?
+          </h2>
+        </div>
+
+        {/* Main Slider Area */}
+        <div
+          className="relative group"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
-          <ChevronLeft size={24} />
-        </button>
-
-        {/* Right Arrow */}
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex opacity-0 group-hover:opacity-100"
-          aria-label="Next slide"
-        >
-          <ChevronRight size={24} />
-        </button>
-
-        {/* Viewport */}
-        <div className="overflow-hidden w-full pb-8">
-          <div
-            className="flex"
-            style={{
-              transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
-              transition: isTransitioning
-                ? "transform 500ms ease-in-out"
-                : "none",
-            }}
-            onTransitionEnd={handleTransitionEnd}
+          {/* Left Arrow */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex opacity-0 group-hover:opacity-100"
+            aria-label="Previous slide"
           >
-            {extendedProducts.map((product, index) => (
-              <div
-                key={`${product.id}-${index}`}
-                className="flex-shrink-0 px-2 md:px-3"
-                style={{ width: `${100 / cardsToShow}%` }}
-              >
-                <div className="bg-white rounded-xl border border-gray-100 p-3 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col group/card">
-                  
-                  {/* Image */}
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-gray-50">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-                      draggable={false}
-                    />
+            <ChevronLeft size={24} />
+          </button>
 
-                    {product.badge && (
-                      <span
-                        className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-1 text-white rounded shadow-sm ${
-                          product.badge === "SOLD OUT"
-                            ? "bg-rose-500"
-                            : "bg-emerald-500"
-                        }`}
-                      >
-                        {product.badge}
-                      </span>
-                    )}
+          {/* Right Arrow */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 bg-white border border-gray-100 shadow-xl rounded-full p-3 text-gray-700 hover:bg-black hover:text-white transition-all duration-300 hidden md:flex opacity-0 group-hover:opacity-100"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={24} />
+          </button>
 
-                    <button className="absolute bottom-3 right-3 bg-white text-black p-2 rounded-full shadow-lg translate-y-10 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-300">
-                      <ShoppingCart size={16} />
-                    </button>
-                  </div>
+          {/* Viewport */}
+          <div className="overflow-hidden w-full pb-8">
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
+                transition: isTransitioning ? "transform 500ms ease-in-out" : "none",
+              }}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {extendedProducts.map((product, index) => (
+                <div
+                  key={`${product.id}-${index}`}
+                  className="flex-shrink-0 px-2 md:px-3"
+                  style={{ width: `${100 / cardsToShow}%` }}
+                >
+                  <div className="bg-white rounded-xl border border-gray-100 p-3 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col group/card">
+                    
+                    {/* Image */}
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-gray-50">
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                        draggable={false}
+                      />
 
-                  {/* Details */}
-                  <div className="flex flex-col flex-grow">
-                    <p className="text-xs font-medium text-gray-400 mb-1 tracking-wide">
-                      {product.category}
-                    </p>
-
-                    <h3 className="text-sm font-bold text-gray-800 leading-tight mb-2 line-clamp-2 min-h-[2.5em]">
-                      {product.title}
-                    </h3>
-
-                    <div className="flex items-center mb-3">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <svg
-                          key={star}
-                          className="w-3 h-3 text-yellow-400 fill-current"
-                          viewBox="0 0 20 20"
+                      {product.badge && (
+                        <span
+                          className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-1 text-white rounded shadow-sm ${
+                            product.badge === "SOLD OUT" ? "bg-rose-500" : "bg-emerald-500"
+                          }`}
                         >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                      <span className="text-[10px] text-gray-400 ml-1">(12)</span>
+                          {product.badge}
+                        </span>
+                      )}
+
+                      <button className="absolute bottom-3 right-3 bg-white text-black p-2 rounded-full shadow-lg translate-y-10 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-300">
+                        <ShoppingCart size={16} />
+                      </button>
                     </div>
 
-                    <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-3">
-                      <span className="text-lg font-extrabold text-gray-900">
-                        {product.price}
-                      </span>
-                      <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
-                        In Stock
-                      </span>
+                    {/* Details */}
+                    <div className="flex flex-col flex-grow">
+                      <p className="text-xs font-medium text-gray-400 mb-1 tracking-wide">
+                        {product.category}
+                      </p>
+
+                      <h3 className="text-sm font-bold text-gray-800 leading-tight mb-2 line-clamp-2 min-h-[2.5em]">
+                        {product.title}
+                      </h3>
+
+                      <div className="flex items-center mb-3">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg key={star} className="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                        <span className="text-[10px] text-gray-400 ml-1">(12)</span>
+                      </div>
+
+                      <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-3">
+                        <span className="text-lg font-extrabold text-gray-900">{product.price}</span>
+                        <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
+                          In Stock
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Dots */}
+          <div className="flex justify-center space-x-2 mt-4 md:hidden">
+            {products.map((_, idx) => (
+              <div
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentIndex % products.length === idx ? "w-6 bg-black" : "w-1.5 bg-gray-300"
+                }`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Mobile Dots */}
-        <div className="flex justify-center space-x-2 mt-4 md:hidden">
-          {products.map((_, idx) => (
-            <div
-              key={idx}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                currentIndex % products.length === idx
-                  ? "w-6 bg-black"
-                  : "w-1.5 bg-gray-300"
-              }`}
-            />
-          ))}
+        {/* TRUST SIGNALS - Reduces purchase anxiety */}
+        <div className="mt-10 sm:mt-12 mb-8 sm:mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+            
+            {/* Trust bullet 1 */}
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-blue-50/50 border border-blue-100/50 hover:bg-blue-50 transition-colors duration-300">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
+                <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" strokeWidth={2.5} />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-1 leading-tight">
+                  Secure Payment & Quality
+                </h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  100% safe checkout with quality assurance
+                </p>
+              </div>
+            </div>
+
+            {/* Trust bullet 2 */}
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-blue-50/50 border border-blue-100/50 hover:bg-blue-50 transition-colors duration-300">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
+                <Award className="w-5 h-5 sm:w-6 sm:h-6 text-white" strokeWidth={2.5} />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-1 leading-tight">
+                  Premium Paper & Binding
+                </h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Professionally printed with durable materials
+                </p>
+              </div>
+            </div>
+
+            {/* Trust bullet 3 */}
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-blue-50/50 border border-blue-100/50 hover:bg-blue-50 transition-colors duration-300">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" strokeWidth={2.5} />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-1 leading-tight">
+                  Trusted by 10,000+
+                </h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Customers across India love our service
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Secondary CTA */}
+        <div className="flex justify-center mt-6 sm:mt-8">
+          <a
+            href="/shop"
+            className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gray-50 border border-gray-200 hover:border-blue-200 hover:bg-white text-gray-600 hover:text-blue-600 font-semibold transition-all duration-300 hover:shadow-[0_2px_8px_-2px_rgba(59,130,246,0.15)] active:scale-95"
+          >
+            <span className="text-sm sm:text-base tracking-tight">
+              View All Products
+            </span>
+            
+            <div className="bg-blue-100 group-hover:bg-blue-600 p-1 rounded-full transition-colors duration-300">
+              <ArrowRight 
+                className="w-4 h-4 text-blue-600 group-hover:text-white transition-transform duration-300 group-hover:-rotate-45" 
+                strokeWidth={2.5}
+              />
+            </div>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }
