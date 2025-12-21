@@ -1,365 +1,159 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function BookLoader({ onTransitionStart, onComplete }) {
-  const [stage, setStage] = useState(0);
-  const [exiting, setExiting] = useState(false);
+export default function PaperLoader({ onComplete }) {
+  const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    // --- TIMELINE MASTER ---
-    // 0.5s: Pages Slide In
-    // 1.5s: Cover Wraps
-    // 2.2s: Gold Stamp & Shimmer
-    // 3.8s: START EXIT (Trigger Parent Content)
-    // 4.8s: UNMOUNT
-
-    const timer1 = setTimeout(() => setStage(1), 500);
-    const timer2 = setTimeout(() => setStage(2), 1500);
-    const timer3 = setTimeout(() => setStage(3), 2200);
-
-    // Trigger the exit animation and tell Parent to show content
-    const timerExit = setTimeout(() => {
-      setExiting(true);
-      if (onTransitionStart) onTransitionStart();
-    }, 3800);
-
-    // Tell Parent to remove this component entirely
-    const timerRemove = setTimeout(() => {
-      if (onComplete) onComplete();
-    }, 4800);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timerExit);
-      clearTimeout(timerRemove);
-    };
-  }, [onTransitionStart, onComplete]);
+    const timer = setTimeout(() => setIsDone(true), 3500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#fafafa] transition-all duration-1000 ease-out"
-      style={{
-        opacity: exiting ? 0 : 1,
-        pointerEvents: exiting ? "none" : "auto",
-        transform: exiting ? "scale(1.1)" : "scale(1)", // Subtle zoom out on exit
-      }}
-    >
-      {/* AMBIENT STUDIO PARTICLES */}
-      <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
-        <div className="particle p1"></div>
-        <div className="particle p2"></div>
-        <div className="particle p3"></div>
-      </div>
+    <AnimatePresence onExitComplete={onComplete}>
+      {!isDone && (
+        <motion.div
+          key="loader-root"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-b from-[#FAFBFC] to-[#F1F3F5] overflow-hidden"
+          exit={{
+            opacity: 0,
+            scale: 0.95,
+            transition: { duration: 0.6, ease: "easeOut" },
+          }}
+        >
+          {/* OPTIMIZED PAPER TEXTURE - Single lightweight layer */}
+          <div 
+            className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(90deg,#f8fafc_0%,#f1f5f9_50%,#e2e8f0_100%)]"
+            style={{ 
+              backgroundSize: "200% 100%",
+              animation: "grain 3s ease-in-out infinite"
+            }}
+          />
 
-      {/* 3D BOOK STAGE */}
-      <div className="perspective-stage">
-        <div className={`book-construct ${stage >= 1 ? "active" : ""}`}>
-          {/* SHADOW */}
-          <div className="shadow-blur"></div>
+          {/* MAIN PAPER SHEET - Optimized for mobile */}
+          <motion.div
+            className="relative w-[90vw] max-w-[420px] h-[65vw] max-h-[280px] bg-white/95 shadow-[0_25px_80px_rgba(0,0,0,0.1)] rounded-3xl flex flex-col items-center justify-center overflow-hidden border border-white/60 backdrop-blur-[2px]"
+            initial={{ y: 25, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            {/* ULTRA LIGHT SCAN EFFECT - GPU accelerated */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{ 
+                backgroundPositionX: ["0%", "100%", "100%"]
+              }}
+              transition={{
+                backgroundPositionX: {
+                  duration: 2.8,
+                  times: [0, 0.85, 1],
+                  ease: "easeInOut"
+                },
+                repeat: Infinity
+              }}
+              style={{
+                backgroundImage: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
+                backgroundSize: "200% 100%",
+                backgroundRepeat: "no-repeat"
+              }}
+            />
 
-          {/* PAGES STACK */}
-          <div className="pages-group">
-            <div className="page-sheet s1"></div>
-            <div className="page-sheet s2"></div>
-            <div className="page-sheet s3"></div>
-          </div>
+            {/* SUBTLE RULING LINES - Minimal count */}
+            <motion.div
+              className="absolute inset-x-6 inset-y-12 pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.12 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+            >
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="w-full h-[1px] bg-gradient-to-r from-slate-400/30 to-slate-400/10"
+                  style={{ top: `${25 + i * 35}%` }}
+                />
+              ))}
+            </motion.div>
 
-          {/* COVER SYSTEM */}
-          <div className="cover-system">
-            <div className="cover-spine"></div>
-            <div className="cover-back"></div>
-            <div className="cover-front">
-              <div className={`gold-stamp-container ${stage >= 3 ? "stamped" : ""}`}>
-                <div className="logo-ring">DW</div>
-                <h1 className="brand-text">DWARKADHISH</h1>
-                <div className="gold-shimmer"></div>
-              </div>
+            {/* WATERMARK STRIPE - Single elegant line */}
+            <motion.div
+              className="absolute left-6 top-1/2 w-[2px] h-20 bg-gradient-to-b from-slate-200/70 via-white/90 to-slate-200/70 rounded-full shadow-sm"
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              transition={{ delay: 1.0, duration: 0.6 }}
+              style={{ transformOrigin: "top" }}
+            />
+
+            {/* BRAND TEXT - Mobile-first responsive */}
+            <div className="relative z-10 text-center px-6 py-4 flex-1 flex flex-col justify-center">
+              {/* MAIN BRAND */}
+              <motion.div
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 1.1, duration: 0.7 }}
+                className="overflow-hidden mb-3"
+              >
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-[-0.03em] bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent drop-shadow-sm leading-tight">
+                  DWARKADHISH
+                </h1>
+              </motion.div>
+
+              {/* TAGLINE - Fixed text */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.6, duration: 0.5 }}
+                className="flex items-center gap-3"
+              >
+                <div className="h-[1px] w-8 bg-slate-300" />
+                <p className="text-[9px] sm:text-xs md:text-sm tracking-[0.3em] font-medium uppercase text-slate-600">
+                  PAPER PRODUCTION
+                </p>
+                <div className="h-[1px] w-8 bg-slate-300" />
+              </motion.div>
             </div>
+
+            {/* SPEC LABEL - Compact */}
+            <motion.div
+              className="absolute bottom-4 right-4 text-[8px] font-mono text-slate-400 tracking-wider uppercase"
+              initial={{ opacity: 0, x: 4 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.8, duration: 0.4 }}
+            >
+              SPEC v2.1
+            </motion.div>
+          </motion.div>
+
+          {/* MOBILE-OPTIMIZED PROGRESS BAR */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-1.5 bg-slate-200/80 rounded-full overflow-hidden shadow-inner">
+            <motion.div
+              className="h-full bg-gradient-to-r from-slate-700/90 to-slate-600/90 rounded-full shadow-sm"
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 3.5, ease: "linear" }}
+            />
           </div>
-        </div>
-      </div>
 
-      {/* ELEGANT LOADING TEXT */}
-      <div
-        className={`mt-20 text-center transition-all duration-700 ${
-          stage >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-        }`}
-      >
-        <p className="text-[10px] font-bold tracking-[0.5em] text-gray-400 uppercase animate-pulse">
-          Crafting Excellence
-        </p>
-      </div>
-
-      <style jsx>{`
-        /* --- 3D STAGE --- */
-        .perspective-stage {
-          perspective: 1500px;
-          width: 300px;
-          height: 400px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .book-construct {
-          position: relative;
-          width: 200px;
-          height: 280px;
-          transform-style: preserve-3d;
-          transform: rotateX(30deg) rotateY(-30deg) translateZ(-100px);
-          transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .book-construct.active {
-          transform: rotateX(10deg) rotateY(-15deg) translateZ(0);
-          animation: hover-book 4s ease-in-out infinite 2.5s;
-        }
-
-        /* --- PAGES (Core) --- */
-        .pages-group {
-          position: absolute;
-          right: 2px;
-          top: 4px;
-          width: 190px;
-          height: 272px;
-          transform-style: preserve-3d;
-        }
-
-        .page-sheet {
-          position: absolute;
-          inset: 0;
-          background: #fff;
-          border-left: 1px solid #eee;
-          box-shadow: 1px 0 2px rgba(0, 0, 0, 0.05);
-          transform-origin: left;
-        }
-        .s1 {
-          transform: translateZ(-2px);
-          transition: transform 0.6s 0.1s;
-        }
-        .s2 {
-          transform: translateZ(-4px);
-          transition: transform 0.6s 0.2s;
-        }
-        .s3 {
-          transform: translateZ(-6px);
-          transition: transform 0.6s 0.3s;
-        }
-
-        /* Initial state: Pages exploded out */
-        .book-construct:not(.active) .s1 {
-          transform: translateZ(-50px) translateX(50px);
-          opacity: 0;
-        }
-        .book-construct:not(.active) .s2 {
-          transform: translateZ(-100px) translateX(80px);
-          opacity: 0;
-        }
-        .book-construct:not(.active) .s3 {
-          transform: translateZ(-150px) translateX(110px);
-          opacity: 0;
-        }
-
-        /* --- COVER --- */
-        .cover-system {
-          position: absolute;
-          inset: 0;
-          transform-style: preserve-3d;
-        }
-
-        .cover-back {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: #1e3a8a; /* Royal Blue */
-          transform: translateZ(-8px);
-          border-radius: 2px 6px 6px 2px;
-          box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .cover-spine {
-          position: absolute;
-          left: 0;
-          width: 12px;
-          height: 100%;
-          background: #172554;
-          transform: rotateY(90deg) translateX(-6px) translateZ(-6px);
-        }
-
-        .cover-front {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(145deg, #1e3a8a, #172554);
-          transform-origin: left;
-          transform: rotateY(-140deg); /* Start open */
-          transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s; /* Wrap delay */
-          border-radius: 2px 6px 6px 2px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          backface-visibility: hidden; /* Hide back when open */
-          border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .active .cover-front {
-          transform: rotateY(0deg); /* Snap shut */
-        }
-
-        /* --- GOLD BRANDING --- */
-        .gold-stamp-container {
-          text-align: center;
-          opacity: 0;
-          transform: scale(0.9);
-          transition: all 0.8s ease-out;
-          position: relative;
-          overflow: hidden;
-          padding: 20px;
-        }
-
-        .stamped {
-          opacity: 1;
-          transform: scale(1);
-        }
-
-        .logo-ring {
-          width: 50px;
-          height: 50px;
-          border: 2px solid #d4af37; /* Metallic Gold */
-          border-radius: 50%;
-          margin: 0 auto 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #d4af37;
-          font-weight: 700;
-          font-family: serif;
-          box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        .brand-text {
-          font-family: serif;
-          font-size: 14px;
-          font-weight: 900;
-          letter-spacing: 0.2em;
-          color: transparent;
-          background: linear-gradient(
-            to right,
-            #bf953f,
-            #fcf6ba,
-            #b38728,
-            #fbf5b7,
-            #aa771c
-          );
-          -webkit-background-clip: text;
-          background-clip: text;
-          position: relative;
-          z-index: 2;
-        }
-
-        /* Moving Light Reflection */
-        .gold-shimmer {
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 50%;
-          height: 100%;
-          background: linear-gradient(
-            to right,
-            transparent,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          );
-          transform: skewX(-25deg);
-          z-index: 3;
-          animation: shimmer-move 2s infinite 3s; /* Starts after stamp */
-        }
-
-        /* --- SHADOW --- */
-        .shadow-blur {
-          position: absolute;
-          width: 180px;
-          height: 20px;
-          background: black;
-          opacity: 0;
-          bottom: -40px;
-          left: 10px;
-          border-radius: 50%;
-          filter: blur(15px);
-          transition: opacity 1s 1s, transform 1s 1s;
-          transform: scale(0.5);
-        }
-        .active .shadow-blur {
-          opacity: 0.2;
-          transform: scale(1);
-        }
-
-        /* --- KEYFRAMES --- */
-        @keyframes hover-book {
-          0%,
-          100% {
-            transform: rotateX(10deg) rotateY(-15deg) translateY(0);
-          }
-          50% {
-            transform: rotateX(12deg) rotateY(-12deg) translateY(-8px);
-          }
-        }
-
-        @keyframes shimmer-move {
-          0% {
-            left: -150%;
-          }
-          100% {
-            left: 200%;
-          }
-        }
-
-        /* --- PARTICLES --- */
-        .particle {
-          position: absolute;
-          background: #000;
-          border-radius: 50%;
-        }
-        .p1 {
-          width: 2px;
-          height: 2px;
-          top: 20%;
-          left: 30%;
-          animation: float 10s infinite;
-          opacity: 0.1;
-        }
-        .p2 {
-          width: 4px;
-          height: 4px;
-          top: 60%;
-          left: 70%;
-          animation: float 15s infinite reverse;
-          opacity: 0.05;
-        }
-        .p3 {
-          width: 1px;
-          height: 1px;
-          top: 40%;
-          left: 50%;
-          animation: float 20s infinite;
-          opacity: 0.1;
-        }
-
-        @keyframes float {
-          0% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-30px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </div>
+          <style jsx global>{`
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap');
+            
+            * {
+              font-family: 'Inter', sans-serif;
+              -webkit-font-smoothing: antialiased;
+            }
+            
+            @keyframes grain {
+              0%, 100% { background-position: 0% 0%; }
+              50% { background-position: 200% 0%; }
+            }
+            
+            @media (max-width: 640px) {
+              h1 { font-size: 2rem !important; letter-spacing: -0.02em !important; }
+            }
+          `}</style>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

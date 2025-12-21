@@ -26,84 +26,78 @@ export default function App() {
     <div className="min-h-screen bg-white overflow-x-hidden relative">
 
       {/* 1. RENDER LOADER CONDITIONALLY */}
-       {loading && (
-        <BookLoader 
+      {loading && (
+        <BookLoader
           onTransitionStart={() => setReveal(true)} // When loader starts exiting, reveal content
           onComplete={() => setLoading(false)}      // When animation is totally done, unmount loader
         />
-      )} 
+      )}
 
       {/* 2. MAIN CONTENT (Controlled by 'reveal' state) */}
-       <div 
+      <div
         className={`relative z-10 transition-all duration-1000 ease-out`}
         style={{
-           transform: reveal ? 'scale(1) translateY(0)' : 'scale(0.98) translateY(20px)',
-           opacity: reveal ? 1 : 0
+          transform: reveal ? 'scale(1) translateY(0)' : 'scale(0.98) translateY(20px)',
+          opacity: reveal ? 1 : 0
         }}
-      > 
-
-      {/* NAVBAR */}
-      <Navbar>
-        <NavbarButton
-          label="Design Your Notebook"
-          href="/custom"
-          variant="colored"
-        />
-        <NavbarItem label="Shop" href="/shop" />
-        <NavbarItem label="About" href="/about" />
-        <NavbarItem label="Login" href="/login" />
-      </Navbar>
-
-      <ClickSpark
-        sparkColor="#333"
-        sparkSize={10}
-        sparkRadius={15}
-        sparkCount={8}
-        duration={400}
       >
-        {/* HERO */}
-        <div className={`transition-all duration-1000 delay-300 ease-out ${reveal ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <HeroSwiper />
-        </div>
 
-        <CustomizeSteps />
+        {/* NAVBAR */}
+        <Navbar>
+          <NavbarButton
+            label="Design Your Notebook"
+            href="/custom"
+            variant="colored"
+          />
+          <NavbarItem label="Shop" href="/shop" />
+          <NavbarItem label="About" href="/about" />
+          <NavbarItem label="Login" href="/login" />
+        </Navbar>
 
-        <section>
-          <ShopByBusinessNeeds />
-        </section>
+        <ClickSpark
+          sparkColor="#333"
+          sparkSize={10}
+          sparkRadius={15}
+          sparkCount={8}
+          duration={400}
+        >
+          {/* HERO */}
+          <div className={`transition-all duration-1000 delay-300 ease-out ${reveal ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+            <HeroSwiper />
+          </div>
 
-        <section>
-          <PopularCategories />
-        </section>
-
-        <section>
-          <NewlyLanched />
-        </section>
-
-        <section>
-          <CustomerFeedback />
-        </section>
-
-        <section>
-          <TrustBadges />
-        </section>
-
-        
-
-        {/* SECTIONS */}
-         <div className={`transition-all duration-1000 delay-500 ease-out ${reveal ? 'opacity-100' : 'opacity-0'}`}>
-             
-             <section className="w-full bg-white py-20" />
-             <section className="w-full bg-white py-0" />
-             <section className="w-full bg-white py-2" />
-             <section className="w-full bg-white py-5" /> 
-          </div> 
+          <CustomizeSteps />
 
           <section>
-          <Footer />
-        </section>
-      </ClickSpark>
-       </div> 
+            <ShopByBusinessNeeds />
+          </section>
+
+          <section>
+            <PopularCategories />
+          </section>
+
+          <section>
+            <NewlyLanched />
+          </section>
+
+          <section>
+            <CustomerFeedback />
+          </section>
+
+          <section>
+            <TrustBadges />
+          </section>
+
+
+
+          {/* SECTIONS */}
+         
+
+          <section>
+            <Footer />
+          </section>
+        </ClickSpark>
+      </div>
     </div>
   );
 }
