@@ -20,7 +20,7 @@ import BookLoader from "@/components/Loading-page-animation";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [reveal, setReveal] = useState(true);
+  const [reveal, setReveal] = useState(false);
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden relative">
@@ -28,8 +28,10 @@ export default function App() {
       {/* 1. RENDER LOADER CONDITIONALLY */}
       {loading && (
         <BookLoader
-          onTransitionStart={() => setReveal(true)} // When loader starts exiting, reveal content
-          onComplete={() => setLoading(false)}      // When animation is totally done, unmount loader
+          onComplete={() => {
+            setReveal(true);
+            setLoading(false);
+          }}
         />
       )}
 
@@ -51,7 +53,9 @@ export default function App() {
           />
           <NavbarItem label="Shop" href="/shop" />
           <NavbarItem label="About" href="/about" />
-          <NavbarItem label="Login" href="/login" />
+          <NavbarButton label="Login" href="/login" variant="simple" />
+          <NavbarButton label="Signup" href="/signup" variant="simple" />
+
         </Navbar>
 
         <ClickSpark
@@ -91,7 +95,7 @@ export default function App() {
 
 
           {/* SECTIONS */}
-         
+
 
           <section>
             <Footer />

@@ -76,8 +76,8 @@ export default function BusinessNeeds() {
                                 />
                             </div>
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-800 mb-2">Startups & Growth</h3>
-                        <p className="text-slate-500 text-sm leading-relaxed mb-6">Scalable solutions, fast quotes, flexible plans.</p>
+                        <h3 className="text-2xl font-bold text-slate-800 mb-2">I'D cards</h3>
+                        <p className="text-slate-500 text-sm leading-relaxed mb-6">Professional employee ID cards with secure design and bulk-order savings.</p>
                         <div className="mt-auto">
                             <ActionButton text="Explore Options" />
                         </div>
@@ -98,8 +98,8 @@ export default function BusinessNeeds() {
                                 />
                             </div>
                         </div>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">Corporate Packs</h3>
-                        <p className="text-slate-500 text-[13px] leading-relaxed mb-6">Complete office essentials, branded kits, premium quality</p>
+                        <h3 className="text-xl font-bold text-slate-800 mb-2">Business Cards</h3>
+                        <p className="text-slate-500 text-[13px] leading-relaxed mb-6">Premium visiting cards with sharp print and fast 24-hour dispatch.</p>
                         <div className="mt-auto">
                             <ActionButton text="View Packs" />
                         </div>
@@ -120,8 +120,8 @@ export default function BusinessNeeds() {
                                 />
                             </div>
                         </div>
-                        <h3 className="text-xl font-bold text-slate-800 mb-1 leading-tight">Events & Merch</h3>
-                        <p className="text-slate-500 text-[11px] leading-relaxed mb-4">Custom branding, promotional materials, large quantities</p>
+                        <h3 className="text-xl font-bold text-slate-800 mb-1 leading-tight">Pamphlet</h3>
+                        <p className="text-slate-500 text-[11px] leading-relaxed mb-4">High-quality printed pamphlets ideal for marketing and brand communication.</p>
                         <div className="mt-auto w-full">
                             <ActionButton text="Get Quote" className="w-full" />
                         </div>
@@ -151,11 +151,11 @@ export default function BusinessNeeds() {
                             {/* TEXT */}
                             <div className="flex flex-col justify-center h-full px-1 sm:px-0">
                                 <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-1 leading-tight">
-                                    Event Displays
+                                    Standy
                                 </h3>
 
                                 <p className="text-slate-500 text-[12px] sm:text-[11px] mb-3 leading-tight">
-                                    Banners, standees, booth materials.
+                                    Eye-catching standees for promotions, events, and in-store branding.
                                 </p>
 
                                 <ActionButton text="Get Quote" />
@@ -184,11 +184,11 @@ export default function BusinessNeeds() {
                             {/* TEXT */}
                             <div className="flex flex-col justify-center h-full px-1 sm:px-0">
                                 <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-1 leading-tight">
-                                    Employee Gifting
+                                    Paper Bags
                                 </h3>
 
                                 <p className="text-slate-500 text-[12px] sm:text-[11px] mb-3 leading-tight">
-                                    Welcome kits, premium boxes.
+                                   Durable, eco-friendly paper bags with custom branding for your business.
                                 </p>
 
                                 <ActionButton text="Order Now" />

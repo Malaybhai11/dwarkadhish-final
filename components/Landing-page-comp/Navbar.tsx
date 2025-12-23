@@ -102,6 +102,19 @@ export function Navbar({ children }: { children: React.ReactNode }) {
     );
   }, [navButtons]);
 
+  // Combine links and non-CTA buttons for the dropdown menus
+  const menuItems = useMemo(() => {
+    const items = [...navLinks];
+    navButtons.forEach((btn) => {
+      // If this button is not the one we're showing as the main CTA, add it to the dropdown
+      if (btn.label !== cta.label || btn.href !== cta.href) {
+        items.push({ label: btn.label, href: btn.href });
+      }
+    });
+    return items;
+  }, [navLinks, navButtons, cta]);
+
+
   // Hide on scroll down, show on scroll up
   useEffect(() => {
     let lastY = window.scrollY;
@@ -251,7 +264,7 @@ export function Navbar({ children }: { children: React.ReactNode }) {
             <a
               href={cta.href}
               aria-label={cta.label}
-             
+
               style={{
                 transform:
                   "translate(var(--mouse-x, 0px), var(--mouse-y, 0px))",
@@ -400,8 +413,9 @@ export function Navbar({ children }: { children: React.ReactNode }) {
         drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]
       "
                 >
-                  Customize
+                  {cta.label}
                 </span>
+
               </span>
 
               {/* Mobile: Enhanced Arrow with Bounce */}
@@ -602,11 +616,10 @@ export function Navbar({ children }: { children: React.ReactNode }) {
     transition-all duration-300 ease-out
     origin-top-right
     
-    ${
-      open
-        ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-        : "opacity-0 scale-[0.97] -translate-y-2 pointer-events-none"
-    }
+    ${open
+                  ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 scale-[0.97] -translate-y-2 pointer-events-none"
+                }
   `}
             >
               {/* Dropdown Container - Premium Card */}
@@ -633,7 +646,7 @@ export function Navbar({ children }: { children: React.ReactNode }) {
     overflow-hidden
   "
               >
-                {navLinks.map((link, index) => (
+                {menuItems.map((link, index) => (
                   <a
                     key={link.label}
                     href={link.href}
@@ -720,7 +733,7 @@ export function Navbar({ children }: { children: React.ReactNode }) {
             className="rounded-3xl bg-white/80 backdrop-blur-md border border-blue-100/80 shadow-2xl shadow-blue-500/10 overflow-hidden"
           >
             {/* Links with enhanced touch targets */}
-            {navLinks.map((link, idx) => (
+            {menuItems.map((link, idx) => (
               <a
                 key={link.label}
                 href={link.href}
