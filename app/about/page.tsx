@@ -5,6 +5,7 @@ import HeroSwiper from "@/components/About-us-component/About-hero";
 import { motion } from "framer-motion";
 import Footer2 from "@/components/Landing-page-comp-2/Footer2";
 import ClientTrustSection from "@/components/About-us-component/Clients-trust-sec";
+import LocationServedSection from "@/components/About-us-component/Services-page";
 import {
   ShieldCheck,
   Printer,
@@ -531,6 +532,10 @@ export default function AboutUs() {
       {/* Capabilities - Asymmetric Grid */}
       <section>
         <ClientTrustSection />
+      </section>
+
+      <section>
+        <LocationServedSection /> 
       </section>
 
 

@@ -123,3 +123,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes scroll-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-content-animated {
+  width: max-content;
+  animation: scroll-marquee 20s linear infinite;
+  will-change: transform;
+}
+
+.marquee-paused {
+  animation-play-state: paused !important;
+}

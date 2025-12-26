@@ -15,6 +15,7 @@ import NewlyLanched from "@/components/Landing-page-comp-2/Newly-lanched";
 import TrustBadges from "@/components/Landing-page-comp-2/Last-icons";
 import Footer from "@/components/Landing-page-comp-2/Footer2";
 import CustomerFeedback from "@/components/Landing-page-comp-2/Customer-feedback";
+import ProductStrip from "@/components/Landing-page-comp/Swiper";
 // IMPORT THE NEW LOADER
 import BookLoader from "@/components/Loading-page-animation";
 
@@ -69,6 +70,10 @@ export default function App() {
           <div className={`transition-all duration-1000 delay-300 ease-out ${reveal ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
             <HeroSwiper />
           </div>
+
+          <section className="py-5">
+            <ProductStrip />
+          </section>
 
           <CustomizeSteps />
 

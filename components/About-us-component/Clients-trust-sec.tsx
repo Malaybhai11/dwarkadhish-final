@@ -31,11 +31,13 @@ const CLIENTS = {
     { name: '--', url: '/Clients/Goverment-sector/11.webp' },
   ],
   education: [
-    { name: 'Uni of Tech', url: 'public/logos/edu/1.png' },
-    { name: 'State College', url: 'public/logos/edu/2.png' },
-    { name: 'Academy', url: 'public/logos/edu/3.png' },
-    { name: 'Institute', url: 'public/logos/edu/4.png' },
-    { name: 'Research Lab', url: 'public/logos/edu/5.png' },
+    { name: '--', url: 'Clients/edu/1.jpg' },
+    { name: '--', url: 'Clients/edu/2.jpg' },
+    { name: '--', url: 'Clients/edu/3.jpg' },
+    { name: '--', url: 'Clients/edu/4.jpg' },
+    { name: '--', url: 'Clients/edu/5.jpg' },
+    { name: '--', url: 'Clients/edu/6.jpg' },
+    { name: 'Health', url: '/Clients/Goverment-sector/5.jpeg' },
   ]
 };
 
@@ -51,7 +53,7 @@ const LogoItem = ({ item, type }: { item: any; type: string }) => {
       whileHover={{ y: -8, scale: 1.02 }}
       className="group relative flex items-center justify-center mx-12 min-w-[150px] md:min-w-[220px]"
     >
-      <div className="relative flex items-center justify-center h-32 w-full px-8 transition-all duration-500 rounded-3xl group-hover:bg-white/60 group-hover:shadow-[0_20px_50px_rgba(8,112,184,0.05)] group-hover:backdrop-blur-md group-hover:border group-hover:border-blue-100/50">
+      <div className="relative flex items-center justify-center h-16 w-full px-6 transition-all duration-500 rounded-3xl group-hover:bg-white/60 group-hover:shadow-[0_20px_50px_rgba(8,112,184,0.05)] group-hover:backdrop-blur-md group-hover:border group-hover:border-blue-100/50">
         {/* Subtle hover background accent */}
         <div className="absolute inset-0 bg-linear-to-br from-blue-50/0 to-indigo-50/0 group-hover:from-blue-50/30 group-hover:to-indigo-50/30 rounded-3xl transition-all duration-700" />
 
@@ -198,7 +200,7 @@ export default function TrustSection() {
           {/* Row 1 */}
           <div className="space-y-4">
             <div className="flex items-center gap-6 px-6">
-              <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap">Enterprise Sector</h3>
+              <h2 className="text-[18px] font-bold text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap">Enterprise Sector</h2>
               <div className="h-px flex-1 bg-linear-to-r from-slate-200 to-transparent opacity-60" />
             </div>
             <InfiniteMarquee items={CLIENTS.private} speed={55} type="private" />
@@ -207,7 +209,7 @@ export default function TrustSection() {
           {/* Row 2 */}
           <div className="space-y-4">
             <div className="flex items-center gap-6 px-6 flex-row-reverse">
-              <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap text-right">Public Governance</h3>
+              <h2 className="text-[18px] font-bold text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap text-right">Public Governance</h2>
               <div className="h-px flex-1 bg-linear-to-l from-slate-200 to-transparent opacity-60" />
             </div>
             <InfiniteMarquee items={CLIENTS.government} direction="right" speed={65} type="government" />
@@ -216,7 +218,7 @@ export default function TrustSection() {
           {/* Row 3 */}
           <div className="space-y-4">
             <div className="flex items-center gap-6 px-6">
-              <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap">Academic Institutions</h3>
+              <h2 className="text-[18px] font-bold text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap">Academic Institutions</h2>
               <div className="h-px flex-1 bg-linear-to-r from-slate-200 to-transparent opacity-60" />
             </div>
             <InfiniteMarquee items={CLIENTS.education} speed={60} type="education" />

@@ -1,18 +1,17 @@
 "use client";
 
 const PRODUCTS = [
-  { name: "Crayons", color: "bg-yellow-400" },
-  { name: "Canvas Board", color: "bg-orange-400" },
-  { name: "Brushes", color: "bg-pink-400" },
-  { name: "Poster Colours", color: "bg-blue-400" },
-  { name: "Writing Pencils", color: "bg-green-400" },
-  { name: "Long Book", color: "bg-purple-400" },
-  { name: "Notebooks", color: "bg-red-400" },
-  { name: "Diaries", color: "bg-indigo-400" },
-  { name: "Files", color: "bg-teal-400" },
-  { name: "Sketch Pads", color: "bg-amber-400" },
-  { name: "Covers", color: "bg-rose-400" },
-  { name: "Art Paper", color: "bg-cyan-400" },
+  { name: "Banners", image: "/swiper-images2/banner.png" },
+  { name: "Bill-Books", image: "/swiper-images2/bill-books.png" },
+  { name: "Bottle-lables", image: "/swiper-images/bottle-label.png" },
+  { name: "Business-cards", image: "/swiper-images2/business-card.png" },
+  { name: "Calenders", image: "/swiper-images2/calender.png" },
+  { name: "Id-Cards", image: "/swiper-images2/id-card.png" },
+  { name: "Files", image: "/swiper-images2/lever-arch-file.png" },
+  { name: "Notebooks", image: "/swiper-images2/notebook.png" },
+  { name: "Paper-bags", image: "/swiper-images2/paper-bag.png" },
+  { name: "School-diarys", image: "/swiper-images2/school-diary.png" },
+  { name: "Standys", image: "/swiper-images2/standy.png" },
 ];
 
 export default function ProductStrip() {
@@ -22,24 +21,43 @@ export default function ProductStrip() {
         {/* First Set */}
         <div className="flex shrink-0 items-center justify-around gap-12 pr-12 marquee-content">
           {PRODUCTS.map((item, index) => (
-            <div key={index} className="flex flex-col items-center shrink-0">
-              {/* CARD — SIZE UNCHANGED */}
+            <div key={index} className="flex flex-col items-center shrink-0 group cursor-pointer">
+              {/* CARD — ULTRA SLIM & IMAGE FOCUS */}
               <div
-                className={`
-                  w-40 h-60
-                  rounded-xl
-                  ${item.color}
-                  shadow-md
-                  flex items-center justify-center
-                `}
+                className="
+                  w-64 h-[350px]
+                  rounded-[2rem]
+                  bg-white
+                  relative
+                  overflow-hidden
+                  transition-all duration-700
+                  shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+                  group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+                  group-hover:-translate-y-3
+                "
               >
-                {/* IMAGE GOES HERE */}
-                {/* <img src="/product.png" className="w-full h-full object-contain" /> */}
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover scale-[2] transition-transform duration-1000 group-hover:scale-[2.2]"
+                  />
+                ) : (
+                  <div className="h-full flex items-center justify-center bg-gray-50 text-gray-400 font-medium">
+                    {item.name}
+                  </div>
+                )}
+
+                {/* Subtle Overlay for better depth */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               </div>
 
-              <p className="mt-3 text-sm font-medium text-gray-800">
-                {item.name}
-              </p>
+              <div className="mt-6 text-center transform transition-all duration-500 group-hover:translate-y-1">
+                <p className="text-lg font-bold text-gray-900 tracking-tight">
+                  {item.name}
+                </p>
+                <div className="h-1 w-0 bg-blue-500 mx-auto mt-1 rounded-full transition-all duration-500 group-hover:w-full" />
+              </div>
             </div>
           ))}
         </div>
@@ -47,47 +65,64 @@ export default function ProductStrip() {
         {/* Second Set (Duplicate for seamless loop) */}
         <div className="flex shrink-0 items-center justify-around gap-12 pr-12 marquee-content">
           {PRODUCTS.map((item, index) => (
-            <div key={`dup-${index}`} className="flex flex-col items-center shrink-0">
-              {/* CARD — SIZE UNCHANGED */}
+            <div key={`dup-${index}`} className="flex flex-col items-center shrink-0 group cursor-pointer">
+              {/* CARD — ULTRA SLIM & IMAGE FOCUS */}
               <div
-                className={`
-                  w-40 h-60
-                  rounded-xl
-                  ${item.color}
-                  shadow-md
-                  flex items-center justify-center
-                `}
+                className="
+                  w-64 h-[350px]
+                  rounded-[2rem]
+                  bg-white
+                  relative
+                  overflow-hidden
+                  transition-all duration-700
+                  shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+                  group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+                  group-hover:-translate-y-1
+                "
               >
-                {/* IMAGE GOES HERE */}
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover scale-[2] transition-transform duration-1000 group-hover:scale-[2.2]"
+                  />
+                ) : (
+                  <div className="h-full flex items-center justify-center bg-gray-50 text-gray-400 font-medium">
+                    {item.name}
+                  </div>
+                )}
+
+                {/* Subtle Overlay for better depth */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               </div>
 
-              <p className="mt-3 text-sm font-medium text-gray-800">
-                {item.name}
-              </p>
+              <div className="mt-6 text-center transform transition-all duration-500 group-hover:translate-y-1">
+                <p className="text-lg font-bold text-gray-900 tracking-tight">
+                  {item.name}
+                </p>
+                <div className="h-1 w-0 bg-blue-500 mx-auto mt-1 rounded-full transition-all duration-500 group-hover:w-full" />
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* CSS */}
-      <style jsx>{`
+      <style>{`
         .marquee-wrapper {
-          /* Ensures the container respects overflow hiding */
           touch-action: pan-y;
         }
 
         .marquee-content {
-          width: max-content; /* Ensure it takes full width of contents */
-          animation: scroll 20s linear infinite; /* Slower for smoother effect, adjustable */
+          width: max-content;
+          animation: scroll 20s linear infinite;
           will-change: transform;
         }
 
-        /* Pause on hover */
         .marquee-wrapper:hover .marquee-content {
           animation-play-state: paused;
         }
 
-        /* Pause on touch */
         .marquee-wrapper:active .marquee-content {
           animation-play-state: paused;
         }
