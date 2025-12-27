@@ -5,10 +5,10 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
-  "/Hero-images/Customization-Options.jpg",
-  "/Hero-images/what-we-make.jpg",
-  "/Hero-images/How-we-make.jpg",
-  "/Hero-images/delivery-products.jpg",
+  "/Hero-Swiper-Images/hero-image.png",
+  "/Hero-Swiper-Images/hero-image2.png",
+  "/Hero-Swiper-Images/hero-image3.png",
+  "/Hero-Swiper-Images/hero-image4.png",
 ];
 
 const extendedSlides = [...slides, slides[0]];

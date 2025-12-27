@@ -127,13 +127,6 @@ export default function LocationsServedSection() {
                         style={{ scale: mapScale, opacity: mapOpacity, filter: mapBlur }}
                         className="relative w-full max-w-6xl aspect-16/10 flex items-center justify-center mb-32 z-10 perspective-1000"
                     >
-                        {/* Pulsing Location Nodes */}
-                        <div className="absolute top-[22%] left-[48%] z-20"><PulseNode delay={0} /></div>
-                        <div className="absolute top-[52%] left-[32%] z-20"><PulseNode delay={0.7} /></div>
-                        <div className="absolute top-[68%] left-[62%] z-20"><PulseNode delay={1.4} /></div>
-                        <div className="absolute top-[42%] left-[22%] z-20"><PulseNode delay={2.1} /></div>
-                        <div className="absolute top-[82%] left-[52%] z-20"><PulseNode delay={2.8} /></div>
-
                         <Image
                             src="/About-us-img/India-services.jpg"
                             alt="India Subcontinent Map"
@@ -197,7 +190,7 @@ export default function LocationsServedSection() {
                                                 transition={{ duration: 0.6, delay: 0.4 + idx * 0.05 }}
                                                 className="flex items-center group/item cursor-default"
                                             >
-                                                <div className="w-2 h-2 rounded-full bg-slate-200 group-hover/item:bg-blue-600 group-hover/item:scale-150 transition-all duration-300 mr-5" />
+                                                <div className="w-2 h-2 rounded-full bg-blue-600 group-hover/item:scale-150 transition-all duration-300 mr-5" />
                                                 <span className="text-sm font-black text-slate-500 group-hover/item:text-slate-950 transition-colors tracking-tight">{loc}</span>
                                             </motion.li>
                                         ))}
