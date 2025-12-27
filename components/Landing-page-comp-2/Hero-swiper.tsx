@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   "/Hero-Swiper-Images/hero-image.png",
-  "/Hero-Swiper-Images/banner-2.jpg",
+  "/Hero-Swiper-Images/hero-images2.jpeg",
   "/Hero-Swiper-Images/hero-image3.png",
   "/Hero-Swiper-Images/hero-image4.png",
 ];
