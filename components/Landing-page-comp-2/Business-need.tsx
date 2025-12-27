@@ -138,7 +138,7 @@ export default function BusinessNeeds() {
                                 <Badge text="24H DISPATCH" />
                                 <div className="w-full h-full relative overflow-hidden rounded-2xl">
                                     <Image
-                                        src="/products/standys.jpg"
+                                        src="/products/standy.jpg"
                                         alt="Custom event banners and promotional displays"
                                         fill
                                         className="object-cover"
