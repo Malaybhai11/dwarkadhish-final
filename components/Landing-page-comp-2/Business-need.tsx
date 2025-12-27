@@ -89,7 +89,7 @@ export default function BusinessNeeds() {
                             <Badge text="24H DISPATCH" />
                             <div className="aspect-[3/4] w-full h-full relative overflow-hidden rounded-xl">
                                 <Image
-                                    src="/products/business-card.jpg"
+                                    src="/products/business-cards.jpg"
                                     alt="Professional business cards with geometric design"
                                     fill
                                     className="object-cover"
@@ -111,7 +111,7 @@ export default function BusinessNeeds() {
                             <Badge text="BULK SAVINGS" />
                             <div className="grow w-full min-h-[350px] relative overflow-hidden rounded-xl">
                                 <Image
-                                    src="/products/pamphlet.jpg"
+                                    src="/products/pamphlets.jpg"
                                     alt="Branded promotional merchandise and event materials"
                                     fill
                                     className="object-cover"
@@ -138,7 +138,7 @@ export default function BusinessNeeds() {
                                 <Badge text="24H DISPATCH" />
                                 <div className="w-full h-full relative overflow-hidden rounded-2xl">
                                     <Image
-                                        src="/products/standy.jpg"
+                                        src="/products/standys.jpg"
                                         alt="Custom event banners and promotional displays"
                                         fill
                                         className="object-cover"
@@ -171,7 +171,7 @@ export default function BusinessNeeds() {
                                 <Badge text="BEST SELLER" />
                                 <div className="w-full h-full relative overflow-hidden rounded-2xl">
                                     <Image
-                                        src="/products/paper-bags.jpg"
+                                        src="/products/paper-bag.jpg"
                                         alt="Employee welcome kits and corporate gift boxes"
                                         fill
                                         className="object-cover"

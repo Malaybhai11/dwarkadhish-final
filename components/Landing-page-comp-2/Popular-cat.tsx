@@ -42,7 +42,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Customized Notebooks",
     subtitle: "Design • Print • Dilivery",
     icon: Gift,
-    image: "/images/customize-notebook.png",
+    image: "/products/customize-notebook.png",
     imagePlaceholderText: "CATEGORY VISUAL GOES HERE",
     bullets: [
       "Bulk orders with custom branding",
@@ -57,7 +57,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Office Filing Products",
     subtitle: "Lever Arch Files • Folders",
     icon: Briefcase,
-    image: "/images/lever-arch-file.png",
+    image: "/images/lever arch file.png",
     imagePlaceholderText: "OFFICE VISUAL GOES HERE",
     bullets: [
       "Durable & long-lasting",
@@ -72,7 +72,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Bill Book",
     subtitle: "Accounting • Billing Use",
     icon: Heart,
-    image: "/images/bill book.png",
+    image: "/images/bill-book.png",
     imagePlaceholderText: "WELLNESS VISUAL GOES HERE",
     bullets: [
       "Clear and well-ruled pages",
@@ -102,7 +102,7 @@ const CATEGORIES: CategoryData[] = [
     title: "School & Institutional Products",
     subtitle: "School Diaries • Registers",
     icon: Trophy,
-    image: "/images/school-diary.png",
+    image: "/images/school diary.png",
     imagePlaceholderText: "AWARDS VISUAL GOES HERE",
     bullets: [
       "Strong binding",
