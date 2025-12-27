@@ -42,7 +42,7 @@ const CATEGORIES: CategoryData[] = [
     title: "Customized Notebooks",
     subtitle: "Design • Print • Dilivery",
     icon: Gift,
-    image: "/products/customize-notebook.png",
+    image: "/images/customize-notebook.png",
     imagePlaceholderText: "CATEGORY VISUAL GOES HERE",
     bullets: [
       "Bulk orders with custom branding",
